@@ -73,6 +73,7 @@
 .season_title {
     position: absolute;
     top: 50%;
+    width: 85%;
     left: 50%;
     transform: translate(-50%, -50%);
     color: #fff;
@@ -309,11 +310,11 @@
     }
 
     .season_name {
-        font-size: 30px !important;
+        font-size: 17px !important;
     }
 
     .season_number {
-        font-size: 20px !important;
+        font-size: 15px !important;
     }
 
     .ctn {
