@@ -16,6 +16,7 @@ import { ApiService } from './shared/api.service';
 import { MaterialModule } from './material/material.module';
 import { DashboardComponent } from './Modules/dashboard/dashboard.component';
 import { ThemeHelpersService } from './shared/theme-helpers.service';
+import { PlayerModule } from './common/player/player.module';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { ThemeHelpersService } from './shared/theme-helpers.service';
   imports: [
     BrowserModule,
     PlyrModule,
+    PlayerModule,
     AppRoutingModule,
     MaterialModule
   

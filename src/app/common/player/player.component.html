@@ -1,0 +1,28 @@
+<ng-container *ngIf="!loading">
+    <div id="container11" class="relative" mat-dialog-content>
+        <div class="flex items-center playing-header">
+            <img class="back_icn" (click)="close()" src="assets/icons/left-arrow.png" alt="">
+            <div style="margin-left: 5px; display: flex; flex-direction: column;">
+                <span style="font-size: 20px;  font-family: 'Work Sans', sans-serif;">{{epNumber}}. {{title}}</span>
+                <ng-container *ngIf="data && data.isFiller">
+                    <span style="font-size: 10px; color: #9a9a9a;  font-family: 'Work Sans', sans-serif;">👻 You are watching filler episode</span>
+                </ng-container>
+            </div>
+        </div>
+
+        <div #plyrElement plyr (plyrInit)="onPlyrInit($event)" style="max-height: 100%; max-width: 100%;"
+            (plyrPlay)="played($event, vidSrc[0]['fileId'])" [attr.data-id]="vidSrc[0]['fileId']" [plyrSources]="vidSrc"
+            [plyrPlaysInline]="false" [plyrCrossOrigin]="false" id="feed-gallery-video" [plyrDriver]="hlsDriver"  [plyrOptions]="videoPlayerOptions"
+            class="feed-player prevent-global-swipe relative custom-plyr">
+        </div>
+        <div class="custom-controls">
+            
+        </div>
+    </div>
+</ng-container>
+
+<ng-container *ngIf="loading">
+    <div class="loading" mat-dialog-content>
+        <mat-spinner [diameter]="40"></mat-spinner>
+    </div>
+</ng-container>

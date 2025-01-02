@@ -60,7 +60,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
     slidesPerGroup: 1,
     loop: true,
     spaceBetween: -50,
-    navigation: true,
+    // navigation: true,
     autoplay: {
       delay: 3000,  // Time between slide transitions in milliseconds
       disableOnInteraction: false  // Continue autoplay even if user interacts with the swiper
@@ -84,7 +84,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
     slidesPerGroup: 1,
     loop: true,
     spaceBetween: 0,
-    navigation: true,
+    // navigation: true,
     autoplay: {
       delay: 3000,  // Time between slide transitions in milliseconds
       disableOnInteraction: false  // Continue autoplay even if user interacts with the swiper

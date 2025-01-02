@@ -6,6 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 // import { HlsjsPlyrDriver } from '../../hlsjs-plyr-driver'; 
 import { ApiService } from '../../shared/api.service';
 import { ThemeHelpersService } from '../../shared/theme-helpers.service';
+import { PlayerComponent } from '../../common/player/player.component';
 
 @Component({
   selector: 'app-series-detail',
@@ -90,24 +91,24 @@ export class SeriesDetailComponent implements OnInit, AfterViewInit {
         this.selectedSeasonNumber = data[0].season.toString();
         this.episodes = data[0].episodes;
 
-        // if (this.qParams && this.qParams['season'] && this.qParams['ep']) {
-        //   if (this.qParams['season'] && this.qParams['ep']) {
-        //     const season = this.seasons.find(x => x.season == this.qParams['season']);
-        //     if (season && (season['episodes'] && season['episodes'].length > 0)) {
-        //       const episode = season['episodes'].find(x => x.episodeNumber == this.qParams['ep']);
-        //       if (episode) {
-        //         const dialogRef = this.dialog.open(PlayerComponent, {
-        //           // id: 'cloud-plyr-idx',
-        //           width: '100vw',
-        //           maxWidth: '100vw',
-        //           maxHeight: '100vh',
-        //           disableClose: true
-        //         });
-        //         dialogRef.componentInstance.data = episode;
-        //       }
-        //     }
-        //   }
-        // }
+        if (this.qParams && this.qParams['season'] && this.qParams['ep']) {
+          if (this.qParams['season'] && this.qParams['ep']) {
+            const season = this.seasons.find(x => x.season == this.qParams['season']);
+            if (season && (season['episodes'] && season['episodes'].length > 0)) {
+              const episode = season['episodes'].find(x => x.episodeNumber == this.qParams['ep']);
+              if (episode) {
+                const dialogRef = this.dialog.open(PlayerComponent, {
+                  // id: 'cloud-plyr-idx',
+                  width: '100vw',
+                  maxWidth: '100vw',
+                  maxHeight: '100vh',
+                  disableClose: true
+                });
+                dialogRef.componentInstance.data = episode;
+              }
+            }
+          }
+        }
         this.loading = false;
       });
     })
@@ -133,38 +134,38 @@ export class SeriesDetailComponent implements OnInit, AfterViewInit {
 
 
 
-    // const dialogRef = this.dialog.open(PlayerComponent, {
-    //   id: 'cloud-plyr-idx',
-    //   width: '100vw',
-    //   maxWidth: '100vw',
-    //   maxHeight: '100vh',
-    //   disableClose: true
-    // });
+    const dialogRef = this.dialog.open(PlayerComponent, {
+      id: 'cloud-plyr-idx',
+      width: '100vw',
+      maxWidth: '100vw',
+      maxHeight: '100vh',
+      disableClose: true
+    });
 
-    // if(type == 'play'){
-    //   const queryParams = { season: this.selectedSeasonNumber, ep: episode.episodeNumber };
-    //   this._router.navigate(
-    //     [],
-    //     {
-    //       relativeTo: this._route,
-    //       queryParams: queryParams,
-    //     });
-    //   dialogRef.componentInstance.data = episode;
-    // } else if(type == 'watch-now'){
+    if(type == 'play'){
+      const queryParams = { season: this.selectedSeasonNumber, ep: episode.episodeNumber };
+      this._router.navigate(
+        [],
+        {
+          relativeTo: this._route,
+          queryParams: queryParams,
+        });
+      dialogRef.componentInstance.data = episode;
+    } else if(type == 'watch-now'){
 
-    //   if (this.selectedSeason) {
-    //     const episode = this.selectedSeason['episodes'][0]
-    //     const queryParams = { season: this.selectedSeasonNumber, ep: episode['episodeNumber'] };
-    //     this._router.navigate(
-    //       [],
-    //       {
-    //         relativeTo: this._route,
-    //         queryParams: queryParams,
-    //       });
+      if (this.selectedSeason) {
+        const episode = this.selectedSeason['episodes'][0]
+        const queryParams = { season: this.selectedSeasonNumber, ep: episode['episodeNumber'] };
+        this._router.navigate(
+          [],
+          {
+            relativeTo: this._route,
+            queryParams: queryParams,
+          });
     
-    //     dialogRef.componentInstance.data = episode;
+        dialogRef.componentInstance.data = episode;
         
-    //   }
-    // }
+      }
+    }
   }
 }
