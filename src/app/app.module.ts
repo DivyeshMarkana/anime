@@ -10,24 +10,31 @@ import { getDatabase, provideDatabase } from '@angular/fire/database';
 import { getStorage, provideStorage } from '@angular/fire/storage';
 import { environment } from '../environments/environment';
 import { PlyrModule } from '@atom-platform/ngx-plyr';
+import { HomeComponent } from './Modules/home/home.component';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { ApiService } from './shared/api.service';
+import { MaterialModule } from './material/material.module';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
     PlyrModule,
     AppRoutingModule,
+    MaterialModule
   
   ],
   providers: [
-    // provideFirebaseApp(() => initializeApp({"projectId":"anime-cloud-b07fc","appId":"1:185931984465:web:a5cc7ecbf25477a7475270","storageBucket":"anime-cloud-b07fc.appspot.com","locationId":"us-central","apiKey":"AIzaSyBK4-aCmgdGi8-dk7puQuc3ILkCmGEcjwQ","authDomain":"anime-cloud-b07fc.firebaseapp.com","messagingSenderId":"185931984465","measurementId":"G-2X5VW5NE4N"})),
+    ApiService,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
     provideDatabase(() => getDatabase()),
     provideStorage(() => getStorage()),
+    provideAnimationsAsync(),
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]

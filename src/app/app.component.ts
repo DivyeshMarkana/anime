@@ -69,8 +69,8 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    Object.assign(this.swiper.nativeElement, this.options);
-    this.swiper.nativeElement.initialize();
+    // Object.assign(this.swiper.nativeElement, this.options);
+    // this.swiper.nativeElement.initialize();
   }
 
   initPlyr(event:any){
@@ -95,7 +95,7 @@ export class AppComponent implements OnInit, AfterViewInit {
           data.push({ ...doc.data(), id: doc.id })
         });
 
-        console.log(data);
+        // console.log(data);
         
         this.slides = data;
         // this.loadingLatest = false;

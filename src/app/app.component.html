@@ -1,35 +1,3 @@
-
-<!-- <div #player
-  plyr
-  style="width: 640px;"
-  plyrTitle="Video 1"
-  [plyrSources]="videoSources"
-  (plyrInit)="initPlyr($event)"
-  (plyrPlay)="played($event)"></div> -->
-
-  @if(!loading){
-    <div #plyrElement plyr (plyrInit)="initPlyr($event)"
-      style="max-height: 100%; max-width: 100%; width: 640px;"
-      (plyrPlay)="played($event)" [plyrSources]="videoSources"
-      [plyrPlaysInline]="false" [plyrCrossOrigin]="false" id="feed-gallery-video"
-      class="feed-player prevent-global-swipe relative custom-plyr">
-    </div>
-  }
-
-<!-- <div #plyrElement plyr (plyrInit)="initPlyr($event)"
-  style="max-height: 100%; max-width: 100%;"
-  (plyrPlay)="played($event)" [plyrSources]="videoSources"
-  [plyrPlaysInline]="false" [plyrCrossOrigin]="false" id="feed-gallery-video"
-  class="feed-player prevent-global-swipe relative custom-plyr">
-</div> -->
-
-
-
-
-<swiper-container #swiper init="false" id="swiper-con">
-  @for (slide of slides; track slide.id) {
-      <swiper-slide>
-        <img [src]="slide.poster" [alt]="slide.name" style="width: 200px;" />
-      </swiper-slide>
-  }
-</swiper-container>
+<div class="route-content">
+  <router-outlet></router-outlet>
+</div>

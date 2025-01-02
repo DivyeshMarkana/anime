@@ -1,0 +1,214 @@
+<!-- <p>home works!</p> -->
+<div class="bg-transparent text-white min-h-screen" id="landing-page">
+    <div id="top-section-web">
+        <swiper-container #webCarouselSwiper init="false"
+            class="swiper-container" [config]="swiperConfigCarouselWeb">
+            @for (slide of slides; track slide.imageUrl) {
+            <swiper-slide class="swiper-slide relative">
+                <img [src]="slide.imageUrl" [alt]="slide.title"
+                    class="movie-poster" />
+
+                <div class="movie-content">
+                    <div>
+                        <h1 class="movie-title">{{ slide.title }}</h1>
+                        <h2 class="movie-subtitle">{{ slide.subtitle }}</h2>
+                        <p class="movie-description">{{ slide.description }}</p>
+                        <a href="#" class="btn btn-primary watch-now-btn">Watch
+                            Now</a>
+                    </div>
+                </div>
+            </swiper-slide>
+            }
+        </swiper-container>
+    </div>
+
+    <div id="top-section-mob">
+        <swiper-container #mobCarouselSwiper init="false"
+            class="swiper-container" [config]="swiperConfigCarouselMob">
+            @for (slide of slides; track slide.imageUrl) {
+            <swiper-slide class="swiper-slide relative">
+                <img [src]="slide.imageUrl" [alt]="slide.title"
+                    class="movie-poster" />
+
+                <div class="movie-content">
+                    <div>
+                        <h1 class="movie-title">{{ slide.title }}</h1>
+                        <h2 class="movie-subtitle">{{ slide.subtitle }}</h2>
+                        <p class="movie-description">{{ slide.description }}</p>
+                        <a href="#" class="btn btn-primary watch-now-btn">Watch
+                            Now</a>
+                    </div>
+                </div>
+            </swiper-slide>
+            }
+        </swiper-container>
+    </div>
+
+
+    <!-- ******************************* -->
+    <!-- ******************************* -->
+    <!-- TODO: L A T E S T - A N I M E S -->
+    <!-- ******************************* -->
+    <!-- ******************************* -->
+
+    <section class="container mx-auto px-4 mb-12" id="ani-list">
+        <h2 class="text-2xl font-bold mb-6 uppercase">Latest</h2>
+        <swiper-container #latestSlides init="false" class="swiper-container"
+            [config]="swiperSlidesConfig">
+            @for (anime of latestList; track anime.id) {
+            <swiper-slide class="swiper-slide relative">
+                <div class="relative anime-item">
+                    <img [src]="anime.poster" [alt]="anime.name" loading="eager"
+                        class="w-full h-full object-cover"
+                        onerror="this.src= 'assets/posters/poster.jpg'">
+                    <div
+                        class="absolute bottom-0 left-0 px-2 py-1 text-sm anime-title">
+                        <span class="anime-title-txt"> {{ anime.name }}</span>
+                        <!-- <span class="anime-title-txt">#{{i + 1}} {{ anime.name }}</span> -->
+                    </div>
+                    <div class="anime-item-overlay">
+                        <mat-icon>play_circle_outline</mat-icon>
+                    </div>
+                </div>
+
+            </swiper-slide>
+            }
+        </swiper-container>
+    </section>
+
+    <!-- *********************************************** -->
+    <!-- *********************************************** -->
+    <!-- TODO: R E C O M M E N D A T I O N - A N I M E S -->
+    <!-- *********************************************** -->
+    <!-- *********************************************** -->
+
+    <section class="container mx-auto px-4 mb-12" id="ani-list">
+        <h2 class="text-2xl font-bold mb-6 uppercase">Recommendation</h2>
+        <swiper-container #recommendationSlides init="false" class="swiper-container"
+            [config]="swiperSlidesConfig">
+            @for (anime of recommendationList; track anime.id) {
+            <swiper-slide class="swiper-slide relative">
+                <div class="relative anime-item">
+                    <img [src]="anime.poster" [alt]="anime.name" loading="eager"
+                        class="w-full h-full object-cover"
+                        onerror="this.src= 'assets/posters/poster.jpg'">
+                    <div
+                        class="absolute bottom-0 left-0 px-2 py-1 text-sm anime-title">
+                        <span class="anime-title-txt"> {{ anime.name }}</span>
+                        <!-- <span class="anime-title-txt">#{{i + 1}} {{ anime.name }}</span> -->
+                    </div>
+                    <div class="anime-item-overlay">
+                        <mat-icon>play_circle_outline</mat-icon>
+                    </div>
+                </div>
+
+            </swiper-slide>
+            }
+        </swiper-container>
+    </section>
+
+
+  <!-- ******************************************* -->
+  <!-- ******************************************* -->
+  <!-- TODO: A N I M E - W I T H - E P I S O D E S -->
+  <!-- ******************************************* -->
+  <!-- ******************************************* -->
+
+  <ng-container *ngIf="sectionAnime">
+    <section id="section-anime"
+      class="container mx-auto mb-4 flex flex-col rounded overflow-hidden">
+      <div class="flex section-content">
+        <img [src]="sectionAnime.poster" alt="Iron Man 3"
+          class="sm:w-1/3 max-w-[250px]  object-cover">
+        <div class="p-8 section-detail w-full">
+          <h2
+            class="text-3xl font-bold mb-2 section-title">{{sectionAnime.name}}</h2>
+          <p class="mb-6 section-desc" style="max-width: 800px;">
+            Death Note is a supernatural thriller fantasy manga written by
+            Tsugumi Oba and illustrated by Takeshi Obata. The work was adapted
+            into an anime series directed by Tetsuro Araki. It is about a
+            Japanese teenage high school student boy named Light Yagami, who
+            finds a supernatural notebook. The notebook, dropped on earth by a
+            bored shinigami named Ryuk, is called a "Death Note". When a
+            person's name is written in the notebook, that person dies. If the
+            cause of death is not specified, they die of a heart attack. Light,
+            aiming to create a crime-free utopia, uses the notebook to kill
+            criminals, anonymously gaining world fame as "Kira" (in Japanese -
+            based on the English word "killer") - some people see him as
+            justice, while others see him as a murderer
+          </p>
+          <button
+            class="btn btn-primary text-gray-900 px-6 py-2 rounded section-watch-now"
+            routerLink="/{{sectionAnime.id}}">Watch Now</button>
+        </div>
+      </div>
+
+      <div class="ctn">
+        <div class="seasons">
+          <div class="season-item" (click)="selectSeason(season)"
+            *ngFor="let season of sectionSeasons"
+            [ngClass]="season.season == selectedSeasonNumber ? 'selected-season' : ''">
+            Season {{ season.season }}
+          </div>
+        </div>
+
+        <div class="episode_list">
+          <div class="episode_item" *ngFor="let episode of sectionEpisodes">
+            <div class="ep_img_box" (click)="viewEpisode(episode, 'play')">
+              <img class="episode_img" [src]="selectedSeason['poster']" alt>
+
+              <div class="ep-count-box"
+                [ngClass]="episode.isFiller ? 'filler-ep' : ''"></div>
+              <div class="ep-count">{{episode.episodeNumber}}</div>
+
+              <div class="overlay">
+                <mat-icon>play_circle_outlined</mat-icon>
+              </div>
+            </div>
+          </div>
+
+          <div class="episode_item" routerLink="/{{sectionAnime.id}}">
+            View more
+          </div>
+        </div>
+      </div>
+    </section>
+  </ng-container>
+
+
+  <!-- ******************************* -->
+  <!-- ******************************* -->
+  <!-- TODO: P O P U L A R - A N I M E -->
+  <!-- ******************************* -->
+  <!-- ******************************* -->
+
+
+  <section class="container mx-auto px-4 mb-12" id="ani-list">
+    <h2 class="text-2xl font-bold mb-6 uppercase">Most popular anime</h2>
+    <swiper-container #popularSlides init="false" class="swiper-container"
+        [config]="swiperSlidesConfig">
+        @for (anime of popularList; track anime.id) {
+        <swiper-slide class="swiper-slide relative">
+            <div class="relative anime-item">
+                <img [src]="anime.poster" [alt]="anime.name" loading="eager"
+                    class="w-full h-full object-cover"
+                    onerror="this.src= 'assets/posters/poster.jpg'">
+                <div
+                    class="absolute bottom-0 left-0 px-2 py-1 text-sm anime-title">
+                    <span class="anime-title-txt"> {{ anime.name }}</span>
+                    <!-- <span class="anime-title-txt">#{{i + 1}} {{ anime.name }}</span> -->
+                </div>
+                <div class="anime-item-overlay">
+                    <mat-icon>play_circle_outline</mat-icon>
+                </div>
+            </div>
+
+        </swiper-slide>
+        }
+    </swiper-container>
+</section>
+
+
+
+
+</div>

@@ -1,0 +1,536 @@
+:host {
+    display: block;
+    width: 100%;
+    height: 100vh;
+    background-color: #000;
+}
+
+#landing-page {
+    overflow-y: scroll;
+    // max-height: 70vh;
+    height: 100vh;
+    background: linear-gradient(45deg, #000000, #3fb9ff33);
+}
+
+#top-section-mob {
+    display: none;
+}
+
+#section-anime {
+    background: rgba(22, 22, 22, 0.664) url(./../../../assets/images/dn-bg.jpg);
+    background-blend-mode: darken;
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-radius: 15px;
+    overflow: hidden;
+    max-width: 900px;
+    margin: 0 auto;
+    margin-bottom: 2.5rem;
+
+    .section-detail {
+        backdrop-filter: blur(3px);
+    }
+
+
+    .ctn {
+        backdrop-filter: blur(3px);
+        box-sizing: border-box;
+        // max-width: 1000px;
+        // margin: 0 auto;
+        padding-top: 3rem;
+
+        display: flex;
+        align-items: start;
+        // flex-wrap: wrap;
+
+        .seasons {
+            padding: 2rem;
+            // width: 400px;
+            min-width: 250px;
+            min-height: 350px;
+            border-right: 3px solid var(--primary-green-light);
+            // background: red;
+
+            .season-item {
+                text-align: center;
+                padding: 10px 20px;
+                color: #fff;
+                font-size: 17px;
+                font-weight: 500;
+                margin-bottom: 10px;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+
+            .selected-season {
+                background: var(--primary-green-light);
+            }
+        }
+    }
+
+    .ctn,
+    .mob-ep-list {
+        .episode_list {
+            // margin: 1rem 2rem;
+            // padding: 2rem;
+            box-sizing: border-box;
+            // max-width: 1000px;
+            // margin: 0 auto;
+            margin-left: 2rem;
+            // padding-bottom: 3rem;
+
+            display: flex;
+            flex-wrap: wrap;
+
+            .episode_item {
+                margin: 1rem;
+                display: flex;
+                align-items: center;
+                cursor: pointer;
+
+                .ep_img_box {
+                    position: relative;
+                    overflow: hidden;
+                    border-radius: 10px;
+
+                    .overlay {
+                        width: 100%;
+                        height: 100%;
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        background: #00000080;
+                        color: #fff;
+
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+
+                        font-size: 18px;
+                        font-weight: 500;
+
+                        .mat-icon {
+                            color: #BDBDBD !important;
+                            transform: scale(1.8);
+                        }
+                    }
+                }
+
+                .episode_img {
+                    width: 160px;
+                    aspect-ratio: 16 / 11;
+                    /* height: 200px; */
+                    object-fit: cover;
+                    border-radius: 10px;
+                }
+
+                .ep_desc {
+                    color: #fff;
+                    margin-left: 1rem;
+
+                    .watch_btn {
+                        display: flex !important;
+                        justify-content: center !important;
+                        align-items: center !important;
+
+                        .btn_txt {
+                            margin-left: 5px;
+                            margin-top: 1rem;
+                            padding-top: 1rem;
+                        }
+                    }
+
+                    .ep_desc_txt {
+                        margin-top: 10px;
+                        // max-width: 700px;
+                    }
+                }
+            }
+
+            .episode_item:last-child {
+                // background: var(--primary-green-light);
+                background: #0b90dd7a;
+                width: 160px;
+                aspect-ratio: 16 / 11;
+                border-radius: 10px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                font-weight: 500;
+            }
+        }
+    }
+
+    .ep-count-box {
+        position: absolute;
+        top: -35px;
+        right: -35px;
+        // background: var(--primary-green-light);
+        background: #0b90dd7a;
+        width: 70px;
+        height: 70px;
+        transform: rotate(45deg);
+        z-index: 1;
+        backdrop-filter: blur(1px);
+    }
+
+    .ep-count {
+        position: absolute;
+        top: 7%;
+        right: 10px;
+        z-index: 2;
+        color: #fff;
+        font-weight: 700;
+    }
+
+}
+
+.anime-title {
+    width: 100%;
+    background: #00000059;
+    padding: 20px;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border-radius: 0 0 15px 15px;
+    overflow: hidden;
+
+    .anime-title-txt {
+        font-size: 16px;
+        font-weight: 500;
+
+        -webkit-line-clamp: 1;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        word-wrap: break-word;
+
+        max-width: 230px;
+    }
+}
+
+.anime-item {
+    border: 2px solid #80808040;
+    border-radius: 15px;
+    overflow: hidden !important;
+    cursor: pointer;
+    height: 100%;
+}
+
+.anime-item-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 15px;
+    background: #00000059;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    // transform: translateY(100%);
+    opacity: 0;
+    transition: 650ms cubic-bezier(.5, 0, .5, 1);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .mat-icon {
+        transform: scale(2.3);
+        color: #BDBDBD;
+    }
+}
+
+.anime-item:hover .anime-item-overlay {
+    // transform: translateY(0);
+    opacity: 1;
+}
+
+.carousel-container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    // align-items: center;
+
+    padding-top: 52px;
+}
+
+.carousel-slide {
+    // width: 80%;
+    width: 70%;
+    // height: 70%;
+    // height: 87%;
+    height: 90%;
+    position: relative;
+    overflow: hidden;
+    border-radius: 20px;
+    z-index: 2;
+    // border: 3px solid #dd4e0b;
+    // border: 3px solid #dd4e0b82;
+
+    // border: 3px solid #0b90dd82;
+    border: 2px solid #3fb9ff66;
+
+    // box-shadow: 0px 0px 0px 0px #dd4e0b;
+    // box-shadow: 0px 0px 37px 0px #dd4e0b66;
+
+    // box-shadow: 0px 0px 37px 0px #0b90dd66;
+    // box-shadow: 0px 0px 100px 3px #3fb9ff66;
+}
+
+.movie-poster {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.movie-content {
+    // position: absolute;
+    // bottom: 0;
+    // left: 0;
+    // right: 0;
+    // padding: 2rem;
+    // background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0));
+
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 2rem;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: end;
+    background: #00000036;
+}
+
+.movie-title {
+    font-size: 3rem;
+    margin: 0;
+    text-transform: uppercase;
+}
+
+.movie-subtitle {
+    font-size: 1.5rem;
+    margin: 0.5rem 0 1rem;
+    text-transform: uppercase;
+}
+
+.movie-info {
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    opacity: 0.8;
+}
+
+.movie-description {
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.4;
+    max-width: 60%;
+}
+
+.btn {
+    display: inline-block;
+    padding: 0.6rem 2rem;
+    margin-right: 1rem;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+.btn-primary {
+    // background-color: #ffd700;
+    background: var(--primary-green-light);
+    color: #000;
+}
+
+.btn-secondary {
+    background-color: transparent;
+    color: #fff;
+    border: 2px solid #fff;
+}
+
+.side-slide {
+    position: absolute;
+    // top: 9%;
+    top: 14%;
+    width: 10%;
+    height: 70%;
+    background-size: cover;
+    background-position: center;
+    filter: brightness(0.3);
+    z-index: 1;
+}
+
+.side-slide-left {
+    left: 0;
+    background-image: url('./../../../assets/posters/naruto.jpg');
+}
+
+.side-slide-right {
+    right: 0;
+    // background-image: url('https://hebbkx1anhila5yf.public.blob.vercel-storage.com/placeholder.svg?height=400&width=300');
+    background-image: url('./../../../assets/posters/itachi-u.jpg');
+}
+
+
+// *******************************************************
+// *******************************************************
+// TODO ************ M E D IA - Q U E R I E S ************
+// *******************************************************
+// *******************************************************
+
+
+@media screen and (max-width:768px) {
+
+    #top-section-mob {
+        display: block !important;
+    }
+
+    #top-section-web {
+        display: none !important;
+    }
+
+    .carousel-container {
+        height: 100% !important;
+        padding-top: 0 !important;
+        margin-bottom: 1rem !important;
+
+    }
+
+    .carousel-slide {
+        width: 100%;
+        height: 100% !important;
+        border-radius: 0 !important;
+        border: none !important;
+        box-shadow: none !important;
+    }
+
+    .side-slide {
+        width: 0 !important;
+    }
+
+    .movie-content {
+        align-items: center !important;
+        justify-content: center !important;
+        text-align: center !important;
+        text-align: center;
+    }
+
+    .movie-title {
+        font-size: 2rem !important;
+    }
+
+    .movie-subtitle {
+        margin-top: 0 !important;
+        font-size: 1.1rem !important;
+    }
+
+    .movie-description {
+        display: none !important;
+        // max-width: 100% !important;
+        // margin-bottom: 1rem !important;
+    }
+
+    .watch-now-btn {
+        margin-right: 0 !important;
+    }
+
+    .section-content {
+        flex-direction: column;
+        align-items: center;
+        margin-top: 20px;
+
+        .section-title {
+            text-align: center;
+        }
+
+        .section-desc {
+            text-align: center;
+        }
+
+        .section-watch-now {
+            margin: 20px auto 0 !important;
+            display: block;
+        }
+    }
+
+    #top-section-web,
+    #top-section-mob {
+        .swiper-container {
+            padding-top: 0 !important;
+        }
+
+        .swiper-slide {
+            height: 40dvh !important
+        }
+
+        .swiper-slide-active {
+            opacity: 1;
+            transform: scale(1);
+            // transition: all 500ms ease-in-out;
+            z-index: 2;
+            border: none !important;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: none !important;
+        }
+    }
+
+
+    #section-anime {
+        .ctn {
+            display: none !important;
+        }
+    }
+
+}
+
+
+#top-section-web,
+#top-section-mob {
+    .swiper-container {
+        padding-block: 50px;
+    }
+
+    .swiper-slide {
+        // background-color: red;
+        width: 100%;
+        height: 85dvh;
+        opacity: 0.2;
+        transform: scale(0.9);
+        // transition: all 500ms ease-in-out;
+        z-index: 1;
+    }
+
+    .swiper-slide-active {
+        opacity: 1;
+        transform: scale(1);
+        // transition: all 500ms ease-in-out;
+        z-index: 2;
+        // background-color: blue !important;
+        border: 3px solid #3fb9ff66;
+        // paddig: 50px 0 ;
+        border-radius: 10px;
+        overflow: hidden;
+        ;
+        box-shadow: 0px 0px 70px 3px #3fb9ff49;
+    }
+}
+
+#ani-list {
+
+    // margin: 0 40px;
+    .swiper-slide {
+        width: 180px;
+        height: 250px;
+        border-radius: 15px;
+        background: rgba(173, 216, 230, 0.151);
+    }
+}
