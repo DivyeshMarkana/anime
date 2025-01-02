@@ -1,0 +1,386 @@
+.overlay {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    // background: linear-gradient(90deg , );
+    background: linear-gradient(145deg, #000000fc 0%, #00000094 100%);
+
+    .mat-icon {
+        color: #BDBDBD !important;
+        transform: scale(1.8);
+    }
+}
+
+.back-arrow {
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+
+    .mat-icon {
+        color: #fff !important;
+    }
+
+    .back-txt {
+        color: #fff !important;
+        margin-left: 10px;
+    }
+}
+
+.mob-ep-list {
+    display: none !important;
+}
+
+.ep-count-box {
+    position: absolute;
+    top: -35px;
+    right: -35px;
+    // background: var(--primary-green-light);
+    background: #0b90dd7a;
+    width: 70px;
+    height: 70px;
+    transform: rotate(45deg);
+    z-index: 1;
+    backdrop-filter: blur(1px);
+}
+
+.filler-ep {
+    background: #ffc95c82 !important;
+}
+
+.ep-count {
+    position: absolute;
+    top: 7%;
+    right: 10px;
+    z-index: 2;
+    color: #fff;
+    font-weight: 700;
+}
+
+.watch_now_btn {
+    // width: 100%;
+    // height: 100%;
+    position: absolute;
+    bottom: 15%;
+    left: 6%;
+}
+
+.season_title {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #fff;
+
+    .season_name {
+        text-align: center;
+        line-height: 1;
+        font-size: 50px;
+        font-weight: 700;
+        font-family: "Work Sans", sans-serif;
+    }
+
+    .season_number {
+        font-size: 25px;
+        font-weight: 500;
+        text-align: center;
+        font-family: "Work Sans", sans-serif;
+    }
+}
+
+.container-box {
+    padding-bottom: 2rem;
+    box-sizing: border-box;
+
+    .top-poster {
+        height: 95%;
+    }
+
+    .season_box {
+        // margin: 2rem 4rem 0;
+        max-width: 1000px;
+        margin: 2rem auto;
+    }
+
+    .ctn {
+        box-sizing: border-box;
+        // max-width: 1000px;
+        // margin: 0 auto;
+        padding-block: 3rem;
+
+        display: flex;
+        align-items: start;
+        // flex-wrap: wrap;
+
+        .seasons {
+            padding: 2rem;
+            // width: 400px;
+            min-width: 250px;
+            min-height: 300px;
+            border-right: 3px solid var(--primary-green-light);
+            // background: red;
+
+            .season-item {
+                text-align: center;
+                padding: 10px 20px;
+                color: #fff;
+                font-size: 17px;
+                font-weight: 500;
+                margin-bottom: 10px;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+
+            .selected-season {
+                background: var(--primary-green-light);
+            }
+        }
+    }
+
+    .ctn,
+    .mob-ep-list {
+        .episode_list {
+            // margin: 1rem 2rem;
+            // padding: 2rem;
+            box-sizing: border-box;
+            // max-width: 1000px;
+            // margin: 0 auto;
+            margin-left: 2rem;
+            padding-bottom: 3rem;
+
+            display: flex;
+            flex-wrap: wrap;
+
+            .episode_item {
+                margin: 1rem;
+                display: flex;
+                align-items: center;
+                cursor: pointer;
+
+                .ep_img_box {
+                    position: relative;
+                    overflow: hidden;
+                    border-radius: 10px;
+
+                    .overlay {
+                        width: 100%;
+                        height: 100%;
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        background: #00000080;
+                        color: #fff;
+
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+
+                        font-size: 18px;
+                        font-weight: 500;
+                    }
+                }
+
+                .episode_img {
+                    width: 180px;
+                    aspect-ratio: 16 / 11;
+                    /* height: 200px; */
+                    object-fit: cover;
+                    border-radius: 10px;
+                }
+
+                .ep_desc {
+                    color: #fff;
+                    margin-left: 1rem;
+
+                    .watch_btn {
+                        display: flex !important;
+                        justify-content: center !important;
+                        align-items: center !important;
+
+                        .btn_txt {
+                            margin-left: 5px;
+                            margin-top: 1rem;
+                            padding-top: 1rem;
+                        }
+                    }
+
+                    .ep_desc_txt {
+                        margin-top: 10px;
+                        // max-width: 700px;
+                    }
+                }
+            }
+        }
+    }
+
+}
+
+::ng-deep #season_box {
+    // .mat-form-field-flex {
+    //     border: 2px solid var(--primary-green-clr);
+    //     background: #efefef07;
+    //     color: #fff !important;
+    //     border-radius: 8px;
+    //     padding: 0 20px;
+    //     height: 100% !important;
+    //   }
+
+    .mat-select-value {
+        color: #fff !important;
+    }
+
+    .mat-select-arrow {
+        color: #fff !important;
+    }
+
+
+    .mat-form-field {
+        width: 20% !important;
+        height: 40px !important;
+        margin-top: 10px !important;
+    }
+
+    .mat-form-field-appearance-fill .mat-form-field-infix {
+        padding: 10px !important;
+    }
+
+    .mat-form-field-appearance-legacy .mat-form-field-underline {
+        height: 0 !important;
+    }
+
+    .mat-form-field-wrapper {
+        padding-bottom: 0 !important;
+        height: 100% !important;
+    }
+
+    .mat-form-field-appearance-outline .mat-form-field-flex {
+        // border: 2px solid var(--primary-green-clr) !important;
+        background: #efefef17 !important;
+        border-radius: 8px !important;
+        padding: 0 20px !important;
+        height: 100% !important;
+    }
+
+    .mat-form-field-infix {
+        border-top: 0 !important;
+    }
+
+    .mat-form-field-outline-start {
+        // border-color: var(--primary-green-light);
+        // border-radius: 15px !important;
+        border: 0px !important;
+    }
+
+    .mat-form-field-outline-gap {
+        // border-color: var(--primary-green-light);
+        // border-radius: 15px !important;
+        border: 0px !important;
+    }
+
+    .mat-form-field-outline-end {
+        // border-color: var(--primary-green-light);
+        // border-radius: 15px !important;
+        border: 0px !important;
+    }
+
+    .mat-form-field-appearance-outline .mat-form-field-infix {
+        border: 0 !important;
+    }
+}
+
+
+
+// *******************************************************
+// *******************************************************
+// TODO ************ M E D IA - Q U E R I E S ************
+// *******************************************************
+// *******************************************************
+
+
+
+@media screen and (max-width: 768px) {
+    .top-poster {
+        height: 35% !important;
+    }
+
+    .season_name {
+        font-size: 30px !important;
+    }
+
+    .season_number {
+        font-size: 20px !important;
+    }
+
+    .ctn {
+        display: none !important;
+    }
+
+    .mob-ep-list {
+        display: block !important;
+    }
+
+    .season_box {
+        // margin: 2rem 4rem 0;
+        width: 90%;
+        margin: 2rem auto;
+    }
+
+    #season_box .mat-form-field {
+        width: 100% !important;
+    }
+
+    .watch_now_btn {
+        bottom: 17%;
+    }
+
+    .watch_btn {
+        width: 120px;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+    }
+
+    .episode_item {
+        flex-direction: column;
+    }
+
+    .ep_img_box {
+        display: flex;
+        justify-content: center;
+
+        .episode_img {
+            width: 90% !important;
+        }
+    }
+
+    .ep_desc {
+        // text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 1rem;
+        text-align: center;
+        width: 90%;
+    }
+
+    .mob-ep-list .episode_list {
+        margin-inline: 1rem !important;
+        display: grid !important;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+
+        .episode_item {
+            margin: 0 !important;
+            // margin-right: 10px !important;
+
+            .episode_img {
+                width: 110px !important;
+            }
+        }
+    }
+}

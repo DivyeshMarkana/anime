@@ -1,0 +1,77 @@
+<div class="container-box w-full h-full overflow-y-scroll">
+
+    <ng-container *ngIf="!loading">
+        <ng-container *ngIf="selectedSeason">
+            <div class="w-full overflow-hidden relative top-poster">
+                <div class="back-arrow" routerLink="/">
+                    <mat-icon>arrow_back</mat-icon>
+                    <span class="back-txt">Back to home</span>
+                </div>
+                
+                <video id="poster-video" #posterVideo class="w-full h-full object-cover" muted loop autoplay [src]="selectedSeason.teaser"></video>
+                <div class="overlay"></div>
+
+                <div class="season_title" *ngIf="animeDetails">
+                    <!-- <h2 class="season_name">Wind Breaker</h2> -->
+                    <h2 class="season_name">{{animeDetails.name}}</h2>
+                    <p class="season_number">Season {{selectedSeason['season']}}</p>
+                </div>
+
+                <button mat-raised-button color="primary" class="watch_now_btn"
+                    (click)="viewEpisode(null, 'watch-now')">
+                    <mat-icon>play_arrow</mat-icon>
+                    <span class="btn_txt">Watch now</span>
+                </button>
+            </div>
+            <div class="ctn">
+                <div class="seasons">
+                    <div class="season-item" (click)="selectSeason(season.season)" *ngFor="let season of seasons" [ngClass]="season.season == selectedSeasonNumber ? 'selected-season' : ''">
+                        Season {{ season.season }}
+                    </div>
+                </div>
+                
+                <div class="episode_list">
+                    <div class="episode_item" *ngFor="let episode of episodes">
+                        <div class="ep_img_box" (click)="viewEpisode(episode, 'play')">
+                            <img class="episode_img" [src]="selectedSeason['poster']" alt="">
+
+                            <div class="ep-count-box" [ngClass]="episode.isFiller ? 'filler-ep' : ''"></div>
+                            <div class="ep-count">{{episode.episodeNumber}}</div>
+    
+                            <div class="overlay">
+                                <mat-icon>play_circle_outlined</mat-icon>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="mob-ep-list">
+                <div class="season_box" id="season_box">
+                    <mat-form-field appearance="outline">
+                        <mat-select [(ngModel)]="selectedSeasonNumber" (selectionChange)="selectSeason($event.value)">
+                            <mat-option value="{{ season.season }}" *ngFor="let season of seasons">Season {{
+                                season.season }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+                <div class="episode_list">
+                    <div class="episode_item" *ngFor="let episode of episodes">
+                        <div class="ep_img_box" (click)="viewEpisode(episode, 'play')">
+                            <img class="episode_img" [src]="selectedSeason['poster']" alt="">
+
+                            <div class="ep-count-box" [ngClass]="episode.isFiller ? 'filler-ep' : ''"></div>
+                            <div class="ep-count">{{episode.episodeNumber}}</div>
+    
+                            <div class="overlay">
+                                <mat-icon>play_circle_outlined</mat-icon>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+    </ng-container>
+</div>

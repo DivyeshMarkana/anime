@@ -56,7 +56,7 @@
         <swiper-container #latestSlides init="false" class="swiper-container"
             [config]="swiperSlidesConfig">
             @for (anime of latestList; track anime.id) {
-            <swiper-slide class="swiper-slide relative">
+            <swiper-slide class="swiper-slide relative" routerLink="/{{anime.id}}">
                 <div class="relative anime-item">
                     <img [src]="anime.poster" [alt]="anime.name" loading="eager"
                         class="w-full h-full object-cover"
@@ -87,7 +87,7 @@
         <swiper-container #recommendationSlides init="false" class="swiper-container"
             [config]="swiperSlidesConfig">
             @for (anime of recommendationList; track anime.id) {
-            <swiper-slide class="swiper-slide relative">
+            <swiper-slide class="swiper-slide relative" routerLink="/{{anime.id}}">
                 <div class="relative anime-item">
                     <img [src]="anime.poster" [alt]="anime.name" loading="eager"
                         class="w-full h-full object-cover"
@@ -188,7 +188,7 @@
     <swiper-container #popularSlides init="false" class="swiper-container"
         [config]="swiperSlidesConfig">
         @for (anime of popularList; track anime.id) {
-        <swiper-slide class="swiper-slide relative">
+        <swiper-slide class="swiper-slide relative" routerLink="/{{anime.id}}">
             <div class="relative anime-item">
                 <img [src]="anime.poster" [alt]="anime.name" loading="eager"
                     class="w-full h-full object-cover"

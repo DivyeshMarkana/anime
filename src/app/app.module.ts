@@ -10,15 +10,18 @@ import { getDatabase, provideDatabase } from '@angular/fire/database';
 import { getStorage, provideStorage } from '@angular/fire/storage';
 import { environment } from '../environments/environment';
 import { PlyrModule } from '@atom-platform/ngx-plyr';
-import { HomeComponent } from './Modules/home/home.component';
+// import { HomeComponent } from './Modules/home/home.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { ApiService } from './shared/api.service';
 import { MaterialModule } from './material/material.module';
+import { DashboardComponent } from './Modules/dashboard/dashboard.component';
+import { ThemeHelpersService } from './shared/theme-helpers.service';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    // HomeComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
@@ -29,6 +32,8 @@ import { MaterialModule } from './material/material.module';
   ],
   providers: [
     ApiService,
+    ThemeHelpersService,
+
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
