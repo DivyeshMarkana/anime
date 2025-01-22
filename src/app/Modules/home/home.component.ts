@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnInit, Renderer2, ViewChild, ViewEncapsulation } from '@angular/core';
 // import { ApiService } from 'src/app/shared/api.service';
 import { ApiService } from '../../shared/api.service';
 import { collection, Firestore, onSnapshot, deleteDoc, updateDoc, doc, getDocs, where, query } from '@angular/fire/firestore';
@@ -168,6 +168,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
     private _change: ChangeDetectorRef,
     private _route: ActivatedRoute,
     private _router: Router,
+    private renderer: Renderer2
   ) { }
 
 
@@ -199,6 +200,19 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
     Object.assign(this.popularSlides.nativeElement, this.swiperSlidesConfig);
     this.popularSlides.nativeElement.initialize();
+
+    const swiperContainer = document.querySelector('swiper-container');
+    if (swiperContainer) {
+      const shadowRoot = swiperContainer.shadowRoot;
+      const swiperElement = shadowRoot?.querySelector('.swiper-initialized');
+      if (swiperElement) {
+        this.renderer.setStyle(swiperElement, 'padding-block', '50px');
+      } else {
+        console.warn('Swiper element not found inside shadow DOM.');
+      }
+    } else {
+      console.error('Swiper container not found.');
+    }
   }
 
 
@@ -277,7 +291,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
         });
 
         this.recommendationList = data;
-        console.log(this.recommendationList);
         this.loadingRecommed = false;
         this._change.detectChanges();
       })
