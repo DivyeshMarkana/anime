@@ -231,17 +231,20 @@
     //     height: 100% !important;
     //   }
 
-    .mat-select-value {
+    .mat-select-value,
+    .mat-mdc-select-value-text {
         color: #fff !important;
     }
 
-    .mat-select-arrow {
+    .mat-select-arrow,
+    .mat-mdc-select-arrow {
         color: #fff !important;
     }
 
 
-    .mat-form-field {
-        width: 20% !important;
+    .mat-form-field,
+    .mat-mdc-form-field {
+        width: 50% !important;
         height: 40px !important;
         margin-top: 10px !important;
     }
@@ -259,7 +262,8 @@
         height: 100% !important;
     }
 
-    .mat-form-field-appearance-outline .mat-form-field-flex {
+    .mat-form-field-appearance-outline .mat-form-field-flex,
+    .mdc-text-field--outlined .mat-mdc-form-field-flex{
         // border: 2px solid var(--primary-green-clr) !important;
         background: #efefef17 !important;
         border-radius: 8px !important;
@@ -267,7 +271,8 @@
         height: 100% !important;
     }
 
-    .mat-form-field-infix {
+    .mat-form-field-infix,
+    .mat-mdc-form-field-infix {
         border-top: 0 !important;
     }
 
@@ -306,11 +311,15 @@
 
 @media screen and (max-width: 768px) {
     .top-poster {
-        height: 35% !important;
+        height: 40% !important;
     }
 
     .season_name {
         font-size: 17px !important;
+    }
+
+    .btn_txt {
+        display: none !important;
     }
 
     .season_number {
@@ -336,14 +345,19 @@
     }
 
     .watch_now_btn {
-        bottom: 17%;
+        bottom: 10%;
     }
 
     .watch_btn {
-        width: 120px;
+        // width: 120px;
         display: flex !important;
         justify-content: center !important;
         align-items: center !important;
+        // border-radius: 50% !important;
+    }
+
+    .mat-mdc-raised-button>.mat-icon {
+        margin: 0 !important;
     }
 
     .episode_item {

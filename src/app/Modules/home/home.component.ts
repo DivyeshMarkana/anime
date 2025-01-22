@@ -34,6 +34,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   @ViewChild('recommendationSlides', { static: false }) recommendationSlides!: ElementRef<SwiperContainer>;
   @ViewChild('popularSlides', { static: false }) popularSlides!: ElementRef<SwiperContainer>;
 
+  // featuredList: any = [];
   recommendationList: any = [];
   latestList: any = [];
   popularList: any = [];
@@ -127,42 +128,38 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   slides: Slide[] = [
     {
-      title: 'Itachi Uchiha',
-      subtitle: 'Dream is Real',
-      info: '2010 | Sci-Fi, Action | 4K HDR | 5.1',
-      description: 'A thief who steals corporate secrets through the use of dream-sharing technology is given the inverse task of planting an idea into the mind of a C.E.O., but his tragic past may doom the project and his team to disaster.',
-      imageUrl: 'assets/posters/itachi-uchiha.jpg',
+      title: 'Blue Lock',
+      subtitle: 'Season 2',
+      info: '2024 | Shonen, Sport, Thriller',
+      description: 'High school soccer players from across Japan gather for a controversial project designed to create the best and most egoistic striker in the world.',
+      imageUrl: 'assets/featured/blue-lock-anime.jpg',
       id:1
     },
     {
-      title: 'Naruto',
-      subtitle: 'King of Monsters',
-      info: '2023 | Action | 4K HDR | 5.1',
-      description: 'The colossal spectacle throws terrifying monsters, including Godzilla, Mothra, and King Ghidorah into an epic battle that threatens the very existence of humanity. As these ancient super-species rise again, they all vie for supremacy, leaving humanity\'s fate hanging in the balance.',
-      imageUrl: 'assets/posters/naruto.jpg',
+      title: 'Solo Leveling',
+      subtitle: 'Season 2',
+      info: '2025 | Action, Adventure, Survival |',
+      description: 'The adventures of Sung Jinwoo in a world that is constantly threatened by monsters and evil forces. In his battles Sung transforms himself from the weakest hunter of all mankind to one of the strongest hunters in existence.',
+      imageUrl: 'assets/featured/solo-leveling-anime.jpg',
       id:2
     },
-    {
-      title: 'Tokyo Ghoul',
-      subtitle: 'Endgame',
-      info: '2019 | Action, Adventure | 4K HDR | 5.1',
-      description: 'After the devastating events of Avengers: Infinity War, the universe is in ruins. With the help of remaining allies, the Avengers assemble once more in order to reverse Thanos\' actions and restore balance to the universe.',
-      imageUrl: 'assets/posters/ken kaneki.jpg',
-      id:3
-    },
+    // {
+    //   title: 'Tokyo Ghoul',
+    //   subtitle: 'Endgame',
+    //   info: '2019 | Action, Adventure | 4K HDR | 5.1',
+    //   description: 'After the devastating events of Avengers: Infinity War, the universe is in ruins. With the help of remaining allies, the Avengers assemble once more in order to reverse Thanos\' actions and restore balance to the universe.',
+    //   imageUrl: 'assets/posters/ken kaneki.jpg',
+    //   id:3
+    // },
     {
       title: 'Wind Braker',
-      subtitle: 'Dream is Real',
-      info: '2010 | Sci-Fi, Action | 4K HDR | 5.1',
-      description: 'A thief who steals corporate secrets through the use of dream-sharing technology is given the inverse task of planting an idea into the mind of a C.E.O., but his tragic past may doom the project and his team to disaster.',
+      subtitle: 'Season 1',
+      info: '2024 | Action, Adventure, Comedy',
+      description: 'Haruka Sakura has no interest in weaklings, only the strongest fighters. Starting at Furin High, a school known for student brawlers who protect their town, Haruka seeks to battle his way to the top.',
       imageUrl: 'assets/posters/wind-braker-poster.jpeg',
-      id:4
+      id:3
     },
   ];
-
-
-
-
 
   constructor(
     private api: ApiService,
@@ -177,7 +174,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
 
   ngOnInit(): void {
-
+    // this.getFeaturedList();
     this.getPopularsAnime();
     this.getRecommendations();
     this.getLatests();
@@ -186,11 +183,13 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    Object.assign(this.webCarouselSwiper.nativeElement, this.swiperConfigCarouselWeb);
-    this.webCarouselSwiper.nativeElement.initialize();
-
-    Object.assign(this.mobCarouselSwiper.nativeElement, this.swiperConfigCarouselMob);
-    this.mobCarouselSwiper.nativeElement.initialize();
+    // setTimeout(() => {
+      Object.assign(this.webCarouselSwiper.nativeElement, this.swiperConfigCarouselWeb);
+      this.webCarouselSwiper.nativeElement.initialize();
+  
+      Object.assign(this.mobCarouselSwiper.nativeElement, this.swiperConfigCarouselMob);
+      this.mobCarouselSwiper.nativeElement.initialize();
+    // }, 1500);
     
     Object.assign(this.latestSlides.nativeElement, this.swiperSlidesConfig);
     this.latestSlides.nativeElement.initialize();
@@ -201,6 +200,35 @@ export class HomeComponent implements OnInit, AfterViewInit {
     Object.assign(this.popularSlides.nativeElement, this.swiperSlidesConfig);
     this.popularSlides.nativeElement.initialize();
   }
+
+
+  //  *************************************
+  //  *************************************
+  // TODO ******** F E A T U R E D ********
+  //  *************************************
+  //  *************************************
+
+  // getFeaturedList() {
+  //   // this.loadingLatest = true;
+  //   const q = query(collection(this.firestore, "seasons"), where("isFeatured", "==", true));
+
+  //   (() => {
+  //     getDocs(q).then((snapshot) => {
+  //       let data: any[] = []
+  //       snapshot.forEach(doc => {
+  //         data.push({ ...doc.data(), id: doc.id })
+  //       });
+
+  //       this.featuredList = data;
+  //       console.log(this.featuredList);
+  //       this._change.detectChanges();
+  //     })
+  //   })();
+  // }
+
+
+
+
 
 
 
