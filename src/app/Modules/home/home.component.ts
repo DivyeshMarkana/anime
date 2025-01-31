@@ -56,16 +56,17 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   swiperConfigCarouselWeb: SwiperOptions = {
     speed: 1000,
-    slidesPerView: 1.3,
+    slidesPerView: 1,
     centeredSlides: true,
     slidesPerGroup: 1,
     loop: true,
-    spaceBetween: -50,
+    // spaceBetween: -50,
+    spaceBetween: 0,
     // navigation: true,
-    autoplay: {
-      delay: 3000,  // Time between slide transitions in milliseconds
-      disableOnInteraction: false  // Continue autoplay even if user interacts with the swiper
-    }
+    // autoplay: {
+    //   delay: 3000,  // Time between slide transitions in milliseconds
+    //   disableOnInteraction: false  // Continue autoplay even if user interacts with the swiper
+    // }
 
     // breakpoints: {
     //   576: {
@@ -86,10 +87,10 @@ export class HomeComponent implements OnInit, AfterViewInit {
     loop: true,
     spaceBetween: 0,
     // navigation: true,
-    autoplay: {
-      delay: 3000,  // Time between slide transitions in milliseconds
-      disableOnInteraction: false  // Continue autoplay even if user interacts with the swiper
-    }
+    // autoplay: {
+    //   delay: 3000,  // Time between slide transitions in milliseconds
+    //   disableOnInteraction: false  // Continue autoplay even if user interacts with the swiper
+    // }
 
     // breakpoints: {
     //   576: {
@@ -138,7 +139,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
     {
       title: 'Solo Leveling',
       subtitle: 'Season 2',
-      info: '2025 | Action, Adventure, Survival |',
+      info: '2025 | Action, Adventure, Survival',
       description: 'The adventures of Sung Jinwoo in a world that is constantly threatened by monsters and evil forces. In his battles Sung transforms himself from the weakest hunter of all mankind to one of the strongest hunters in existence.',
       imageUrl: 'assets/featured/solo-leveling-anime.jpg',
       id:2
@@ -168,7 +169,8 @@ export class HomeComponent implements OnInit, AfterViewInit {
     private _change: ChangeDetectorRef,
     private _route: ActivatedRoute,
     private _router: Router,
-    private renderer: Renderer2
+    private renderer: Renderer2,
+    private elRef: ElementRef
   ) { }
 
 
@@ -185,11 +187,11 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     // setTimeout(() => {
-      Object.assign(this.webCarouselSwiper.nativeElement, this.swiperConfigCarouselWeb);
-      this.webCarouselSwiper.nativeElement.initialize();
+      // Object.assign(this.webCarouselSwiper.nativeElement, this.swiperConfigCarouselWeb);
+      // this.webCarouselSwiper.nativeElement.initialize();
   
-      Object.assign(this.mobCarouselSwiper.nativeElement, this.swiperConfigCarouselMob);
-      this.mobCarouselSwiper.nativeElement.initialize();
+      // Object.assign(this.mobCarouselSwiper.nativeElement, this.swiperConfigCarouselMob);
+      // this.mobCarouselSwiper.nativeElement.initialize();
     // }, 1500);
     
     Object.assign(this.latestSlides.nativeElement, this.swiperSlidesConfig);
@@ -201,18 +203,37 @@ export class HomeComponent implements OnInit, AfterViewInit {
     Object.assign(this.popularSlides.nativeElement, this.swiperSlidesConfig);
     this.popularSlides.nativeElement.initialize();
 
-    const swiperContainer = document.querySelector('swiper-container');
-    if (swiperContainer) {
-      const shadowRoot = swiperContainer.shadowRoot;
-      const swiperElement = shadowRoot?.querySelector('.swiper-initialized');
-      if (swiperElement) {
-        this.renderer.setStyle(swiperElement, 'padding-block', '50px');
-      } else {
-        console.warn('Swiper element not found inside shadow DOM.');
-      }
-    } else {
-      console.error('Swiper container not found.');
-    }
+    // const swiperContainer = document.querySelector('swiper-container');
+    // if (swiperContainer) {
+    //   const shadowRoot = swiperContainer.shadowRoot;
+    //   const swiperElement = shadowRoot?.querySelector('.swiper-initialized');
+    //   if (swiperElement) {
+    //     this.renderer.setStyle(swiperElement, 'padding-block', '50px');
+    //   } else {
+    //     console.warn('Swiper element not found inside shadow DOM.');
+    //   }
+    // } else {
+    //   console.error('Swiper container not found.');
+    // }
+
+
+
+
+    const links = this.elRef.nativeElement.querySelectorAll('.nav-links a[href^="#"]');
+      links.forEach((link: HTMLAnchorElement) => {
+      link.addEventListener('click', (event: Event) => {
+        event.preventDefault();
+        const targetId = link.getAttribute('href')?.substring(1); // Remove #
+        const targetElement = document.getElementById(targetId!);
+        if (targetElement) {
+          targetElement.scrollIntoView({behavior: 'smooth'});
+        }
+      });
+    });
+
+
+
+
   }
 
 

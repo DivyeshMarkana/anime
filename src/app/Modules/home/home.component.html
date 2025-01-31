@@ -1,6 +1,43 @@
 <!-- <p>home works!</p> -->
 <div class="bg-transparent text-white min-h-screen" id="landing-page">
-    <div id="top-section-web">
+
+  <nav>
+    <div class="nav-links">
+      <a class="" href="#hero">Cloud <span style="color: var(--primary-green-light);">Anime</span></a>
+      <a class="nv-item" href="#latest">Latest</a>
+      <a class="nv-item" href="#">Trending</a>
+      <a class="nv-item" href="#popular">Popular</a>
+    </div>
+    <div class="nav-right">
+      <input type="search" placeholder="Search..." class="search-box">
+      <!-- <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
+        <circle cx="12" cy="12" r="3" />
+      </svg> -->
+    </div>
+  </nav>
+
+  <div class="hero" id="hero">
+    <div class="hero-content">
+        <h1>Welcome on site<br>Cloud Anime</h1>
+        <p>Following a betrayal, a young man left for dead is reborn as a powerful devil-human hybrid after merging with his pet devil and is soon enlisted into an organization dedicated to hunting devils.</p>
+        <div class="date-badge">
+            <div class="date-circle"></div>
+            <div class="date-text">
+                06.06.2022
+                <span>New Anime Series</span>
+            </div>
+        </div>
+    </div>
+    <div class="hero-image"></div>
+    <!-- <div class="dots">
+        <div class="dot active"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+    </div> -->
+</div>
+
+  <!-- <div id="top-section-web">
         <swiper-container #webCarouselSwiper init="false"
             class="swiper-container" [config]="swiperConfigCarouselWeb">
             @for (slide of slides; track slide.imageUrl) {
@@ -21,94 +58,94 @@
             </swiper-slide>
             }
         </swiper-container>
-    </div>
+    </div> -->
 
-    <div id="top-section-mob">
-        <swiper-container #mobCarouselSwiper init="false"
-            class="swiper-container" [config]="swiperConfigCarouselMob">
-            @for (slide of slides; track slide.imageUrl) {
-            <swiper-slide class="swiper-slide relative">
-                <img [src]="slide.imageUrl" [alt]="slide.title"
-                    class="movie-poster" />
+  <!-- <div id="top-section-mob">
+    <swiper-container #mobCarouselSwiper init="false"
+      class="swiper-container" [config]="swiperConfigCarouselMob">
+      @for (slide of slides; track slide.imageUrl) {
+      <swiper-slide class="swiper-slide relative">
+        <img [src]="slide.imageUrl" [alt]="slide.title"
+          class="movie-poster" />
 
-                <div class="movie-content">
-                    <div>
-                        <h1 class="movie-title">{{ slide.title }}</h1>
-                        <p>{{slide.info}}</p>
-                        <h2 class="movie-subtitle">{{ slide.subtitle }}</h2>
-                        <p class="movie-description">{{ slide.description }}</p>
-                        <a href="#" class="btn btn-primary watch-now-btn">Watch
-                            Now</a>
-                    </div>
-                </div>
-            </swiper-slide>
-            }
-        </swiper-container>
-    </div>
+        <div class="movie-content">
+          <div>
+            <h1 class="movie-title">{{ slide.title }}</h1>
+            <p>{{slide.info}}</p>
+            <h2 class="movie-subtitle">{{ slide.subtitle }}</h2>
+            <p class="movie-description">{{ slide.description }}</p>
+            <a href="#" class="btn btn-primary watch-now-btn">Watch
+              Now</a>
+          </div>
+        </div>
+      </swiper-slide>
+      }
+    </swiper-container>
+  </div> -->
 
+  <!-- ******************************* -->
+  <!-- ******************************* -->
+  <!-- TODO: L A T E S T - A N I M E S -->
+  <!-- ******************************* -->
+  <!-- ******************************* -->
 
-    <!-- ******************************* -->
-    <!-- ******************************* -->
-    <!-- TODO: L A T E S T - A N I M E S -->
-    <!-- ******************************* -->
-    <!-- ******************************* -->
+  <!-- style="position: relative; margin-top: -18%; z-index: 4;" -->
+  <section class="container mx-auto px-4 mb-12" id="ani-list" style="margin-top: 2rem;">
+    <h2 id="latest" class="text-2xl font-bold mb-6 uppercase">Latest</h2>
+    <swiper-container #latestSlides init="false" class="swiper-container"
+      [config]="swiperSlidesConfig">
+      @for (anime of latestList; track anime.id) {
+      <swiper-slide class="swiper-slide relative" routerLink="/{{anime.id}}">
+        <div class="relative anime-item">
+          <img [src]="anime.poster" [alt]="anime.name" loading="eager"
+            class="w-full h-full object-cover"
+            onerror="this.src= 'assets/posters/poster.jpg'">
+          <div
+            class="absolute bottom-0 left-0 px-2 py-1 text-sm anime-title">
+            <span class="anime-title-txt"> {{ anime.name }}</span>
+            <!-- <span class="anime-title-txt">#{{i + 1}} {{ anime.name }}</span> -->
+          </div>
+          <div class="anime-item-overlay">
+            <mat-icon>play_circle_outline</mat-icon>
+          </div>
+        </div>
 
-    <section class="container mx-auto px-4 mb-12" id="ani-list">
-        <h2 class="text-2xl font-bold mb-6 uppercase">Latest</h2>
-        <swiper-container #latestSlides init="false" class="swiper-container"
-            [config]="swiperSlidesConfig">
-            @for (anime of latestList; track anime.id) {
-            <swiper-slide class="swiper-slide relative" routerLink="/{{anime.id}}">
-                <div class="relative anime-item">
-                    <img [src]="anime.poster" [alt]="anime.name" loading="eager"
-                        class="w-full h-full object-cover"
-                        onerror="this.src= 'assets/posters/poster.jpg'">
-                    <div
-                        class="absolute bottom-0 left-0 px-2 py-1 text-sm anime-title">
-                        <span class="anime-title-txt"> {{ anime.name }}</span>
-                        <!-- <span class="anime-title-txt">#{{i + 1}} {{ anime.name }}</span> -->
-                    </div>
-                    <div class="anime-item-overlay">
-                        <mat-icon>play_circle_outline</mat-icon>
-                    </div>
-                </div>
+      </swiper-slide>
+      }
+    </swiper-container>
+  </section>
 
-            </swiper-slide>
-            }
-        </swiper-container>
-    </section>
+  <!-- *********************************************** -->
+  <!-- *********************************************** -->
+  <!-- TODO: R E C O M M E N D A T I O N - A N I M E S -->
+  <!-- *********************************************** -->
+  <!-- *********************************************** -->
 
-    <!-- *********************************************** -->
-    <!-- *********************************************** -->
-    <!-- TODO: R E C O M M E N D A T I O N - A N I M E S -->
-    <!-- *********************************************** -->
-    <!-- *********************************************** -->
+  <section class="container mx-auto px-4 mb-12" id="ani-list">
+    <h2 class="text-2xl font-bold mb-6 uppercase">Recommendation</h2>
+    <swiper-container #recommendationSlides init="false"
+      class="swiper-container"
+      [config]="swiperSlidesConfig">
+      @for (anime of recommendationList; track anime.id) {
+      <swiper-slide class="swiper-slide relative" routerLink="/{{anime.id}}">
+        <div class="relative anime-item">
+          <img [src]="anime.poster" [alt]="anime.name" loading="eager"
+            class="w-full h-full object-cover"
+            onerror="this.src= 'assets/posters/poster.jpg'">
+          <div
+            class="absolute bottom-0 left-0 px-2 py-1 text-sm anime-title">
+            <span class="anime-title-txt"> {{ anime.name }}</span>
+            <!-- <span class="anime-title-txt">#{{i + 1}} {{ anime.name }}</span> -->
+          </div>
+          <div class="anime-item-overlay">
+            <mat-icon>play_circle_outline</mat-icon>
+          </div>
+        </div>
 
-    <section class="container mx-auto px-4 mb-12" id="ani-list">
-        <h2 class="text-2xl font-bold mb-6 uppercase">Recommendation</h2>
-        <swiper-container #recommendationSlides init="false" class="swiper-container"
-            [config]="swiperSlidesConfig">
-            @for (anime of recommendationList; track anime.id) {
-            <swiper-slide class="swiper-slide relative" routerLink="/{{anime.id}}">
-                <div class="relative anime-item">
-                    <img [src]="anime.poster" [alt]="anime.name" loading="eager"
-                        class="w-full h-full object-cover"
-                        onerror="this.src= 'assets/posters/poster.jpg'">
-                    <div
-                        class="absolute bottom-0 left-0 px-2 py-1 text-sm anime-title">
-                        <span class="anime-title-txt"> {{ anime.name }}</span>
-                        <!-- <span class="anime-title-txt">#{{i + 1}} {{ anime.name }}</span> -->
-                    </div>
-                    <div class="anime-item-overlay">
-                        <mat-icon>play_circle_outline</mat-icon>
-                    </div>
-                </div>
-
-            </swiper-slide>
-            }
-        </swiper-container>
-    </section>
-
+      </swiper-slide>
+      }
+    </swiper-container>
+  </section>
 
   <!-- ******************************************* -->
   <!-- ******************************************* -->
@@ -177,40 +214,35 @@
     </section>
   </ng-container>
 
-
   <!-- ******************************* -->
   <!-- ******************************* -->
   <!-- TODO: P O P U L A R - A N I M E -->
   <!-- ******************************* -->
   <!-- ******************************* -->
 
-
   <section class="container mx-auto px-4 mb-[5rem] sm:mb-12" id="ani-list">
-    <h2 class="text-2xl font-bold mb-6 uppercase">Most popular anime</h2>
+    <h2 id="popular" class="text-2xl font-bold mb-6 uppercase">Most popular anime</h2>
     <swiper-container #popularSlides init="false" class="swiper-container"
-        [config]="swiperSlidesConfig">
-        @for (anime of popularList; track anime.id) {
-        <swiper-slide class="swiper-slide relative" routerLink="/{{anime.id}}">
-            <div class="relative anime-item">
-                <img [src]="anime.poster" [alt]="anime.name" loading="eager"
-                    class="w-full h-full object-cover"
-                    onerror="this.src= 'assets/posters/poster.jpg'">
-                <div
-                    class="absolute bottom-0 left-0 px-2 py-1 text-sm anime-title">
-                    <span class="anime-title-txt"> {{ anime.name }}</span>
-                    <!-- <span class="anime-title-txt">#{{i + 1}} {{ anime.name }}</span> -->
-                </div>
-                <div class="anime-item-overlay">
-                    <mat-icon>play_circle_outline</mat-icon>
-                </div>
-            </div>
+      [config]="swiperSlidesConfig">
+      @for (anime of popularList; track anime.id) {
+      <swiper-slide class="swiper-slide relative" routerLink="/{{anime.id}}">
+        <div class="relative anime-item">
+          <img [src]="anime.poster" [alt]="anime.name" loading="eager"
+            class="w-full h-full object-cover"
+            onerror="this.src= 'assets/posters/poster.jpg'">
+          <div
+            class="absolute bottom-0 left-0 px-2 py-1 text-sm anime-title">
+            <span class="anime-title-txt"> {{ anime.name }}</span>
+            <!-- <span class="anime-title-txt">#{{i + 1}} {{ anime.name }}</span> -->
+          </div>
+          <div class="anime-item-overlay">
+            <mat-icon>play_circle_outline</mat-icon>
+          </div>
+        </div>
 
-        </swiper-slide>
-        }
+      </swiper-slide>
+      }
     </swiper-container>
-</section>
-
-
-
+  </section>
 
 </div>

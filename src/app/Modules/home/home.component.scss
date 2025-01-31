@@ -230,16 +230,19 @@
 
 .movie-content {
     position: absolute;
-    bottom: 0;
-    left: 0;
+    // bottom: 0;
+    top: 0;
+    // left: 0;
     right: 0;
     padding: 2rem;
     background: linear-gradient(to top, rgb(0 0 0 / 80%) 30%, rgba(0, 0, 0, 0)) !important;
     width: 100%;
     height: 100%;
     display: flex;
+    justify-content: flex-start;
     align-items: end;
     background: #00000036;
+    z-index: 3;
 }
 
 .movie-title {
@@ -299,6 +302,19 @@
 
 
 @media screen and (max-width:768px) {
+
+    .nv-item {
+        display: none !important;
+    }
+
+    .hero {
+        height: calc(50dvh - 70px) !important;
+        padding: 2rem !important;
+    }
+
+    .hero-content h1 {
+        font-size: 1.5rem !important;
+    }
 
     #top-section-mob {
         display: block !important;
@@ -386,21 +402,20 @@
 #top-section-mob {
     .swiper-slide {
         width: 100%;
-        height: 85dvh;
-        opacity: 0.2;
-        transform: scale(0.9);
-        z-index: 1;
+        // height: 85dvh;
+        // opacity: 0.2;
+        // transform: scale(0.9);
+        // z-index: 1;
     }
 
     .swiper-slide-active {
-        opacity: 1;
-        transform: scale(1);
-        z-index: 2;
-        border: 3px solid #3fb9ff66;
-        border-radius: 10px;
-        overflow: hidden;
-        ;
-        box-shadow: 0px 0px 70px 3px #3fb9ff49;
+        // opacity: 1;
+        // transform: scale(1);
+        // z-index: 2;
+        // border: 3px solid #3fb9ff66;
+        // border-radius: 10px;
+        // overflow: hidden;
+        // box-shadow: 0px 0px 70px 3px #3fb9ff49;
     }
 }
 
@@ -412,3 +427,172 @@
         background: rgba(173, 216, 230, 0.151);
     }
 }
+
+
+
+
+
+
+
+
+
+
+// #top-image-section {
+//     height: 95dvh;
+//     // background: red;
+//     position: relative;
+//     overflow: hidden;
+//     background: url('../../../assets/featured/solo-leveling-anime.jpg');
+//     background-repeat: no-repeat;
+//     background-size: cover;
+//     background-position: center center ;
+
+//     .top-header {
+//         height: 65px;
+//         width: 100%;
+//         background: #00000098;
+//         position: sticky;
+//         top: 0;
+//         left: 0;
+//         z-index: 3;
+//     }
+
+//     .top-image {
+//         width: 100%;
+//         object-fit: cover;
+//     }
+
+//     .overlay {
+//         content: '';
+//         position: absolute;
+//         top: 0;
+//         left: 0;
+//         width: 100%;
+//         height: 100%;
+//         background: #00000080;
+//         z-index: 1;
+//     }
+// }
+
+
+
+
+
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background: linear-gradient(45deg, #000000, #002f4b);
+    z-index: 99;
+    position: sticky;
+    top: 0;
+
+}
+
+.nav-links {
+    display: flex;
+    gap: 2rem;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.search-box {
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    color: white;
+}
+
+.hero {
+    display: flex;
+    padding: 5rem 8rem;
+    position: relative;
+    overflow: hidden;
+    height: calc(100dvh - 70px);
+}
+
+.hero-content {
+    max-width: 500px;
+    z-index: 2;
+}
+
+.hero-content h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.hero-content p {
+    opacity: 0.7;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+}
+
+.date-badge {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.date-circle {
+    width: 40px;
+    height: 40px;
+    background: pink;
+    border-radius: 50%;
+}
+
+.date-text {
+    font-size: 0.9rem;
+}
+
+.date-text span {
+    display: block;
+    color: pink;
+    margin-top: 0.25rem;
+}
+
+.hero-image {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    // background-image: url('https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-NHRBHITX8EacpjpMx0QmfZS6tDV4z8.png');
+    background-image: url('./../../../assets/featured/chainsaw man 3.jpg');
+    background-size: cover;
+    background-position: top;
+    mask-image: radial-gradient(circle at 60% 50%, black 60%, transparent 100%);
+    -webkit-mask-image: radial-gradient(circle at 60% 50%, black 60%, transparent 100%);
+}
+
+.dots {
+    position: absolute;
+    bottom: 2rem;
+    left: 2rem;
+    display: flex;
+    gap: 0.5rem;
+}
+
+.dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.dot.active {
+    background: white;
+}
+

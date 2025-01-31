@@ -29,7 +29,10 @@ body {
 body {
     margin: 0;
     // font-family: "Work Sans", sans-serif;
-    font-family: "Karla";
+    font-family: "Karla" !important;
+}
+body ~ * {
+    font-family: "Karla" !important;
 }
 
 .mat-flat-button.mat-primary,
