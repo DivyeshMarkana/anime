@@ -484,11 +484,21 @@ nav {
     justify-content: space-between;
     align-items: center;
     padding: 1rem 2rem;
-    background: linear-gradient(45deg, #000000, #002f4b);
+    // background: linear-gradient(45deg, #000000, #002f4b);
     z-index: 99;
     position: sticky;
     top: 0;
 
+}
+
+nav.scrolled {
+    // background: black !important;
+    background: linear-gradient(45deg, #000000, #0a2739) !important;
+    transition: 550ms ease-in;
+}
+nav.transparent {
+    background: transparent !important;
+    transition: 550ms ease-out;
 }
 
 .nav-links {
@@ -514,6 +524,7 @@ nav {
     padding: 0.5rem 1rem;
     border-radius: 20px;
     color: white;
+    height: 33px;
 }
 
 .hero {
@@ -547,10 +558,18 @@ nav {
 }
 
 .date-circle {
-    width: 40px;
-    height: 40px;
-    background: pink;
+    // width: 40px;
+    // height: 40px;
+    // background: pink;
     border-radius: 50%;
+
+    .mat-icon {
+        color: var(--primary-green-light);
+        font-size: 2.2rem;
+        width: 33px;
+        height: 33px;
+        cursor: pointer;
+    }
 }
 
 .date-text {
@@ -570,11 +589,14 @@ nav {
     height: 100%;
     width: 100%;
     // background-image: url('https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-NHRBHITX8EacpjpMx0QmfZS6tDV4z8.png');
-    background-image: url('./../../../assets/featured/chainsaw man 3.jpg');
+    // background-image: url('./../../../assets/featured/chainsaw man 3.jpg');
+    background-image: url('./../../../assets/featured/Frieren Beyond Journey\'s End cover.png');
     background-size: cover;
     background-position: top;
-    mask-image: radial-gradient(circle at 60% 50%, black 60%, transparent 100%);
-    -webkit-mask-image: radial-gradient(circle at 60% 50%, black 60%, transparent 100%);
+    // mask-image: radial-gradient(circle at 60% 50%, black 60%, transparent 100%);
+    // -webkit-mask-image: radial-gradient(circle at 60% 50%, black 60%, transparent 100%);
+    mask-image: linear-gradient(to top, rgb(0 0 0 / 80%) 30%, rgba(0, 0, 0, 0));
+    -webkit-mask-image: linear-gradient(to top, rgb(0 0 0 / 80%) 30%, rgba(0, 0, 0, 0));
 }
 
 .dots {
@@ -595,4 +617,3 @@ nav {
 .dot.active {
     background: white;
 }
-

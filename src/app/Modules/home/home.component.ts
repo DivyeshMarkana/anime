@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnInit, Renderer2, ViewChild, ViewEncapsulation } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, HostListener, OnInit, Renderer2, ViewChild, ViewEncapsulation } from '@angular/core';
 // import { ApiService } from 'src/app/shared/api.service';
 import { ApiService } from '../../shared/api.service';
 import { collection, Firestore, onSnapshot, deleteDoc, updateDoc, doc, getDocs, where, query } from '@angular/fire/firestore';
@@ -16,7 +16,7 @@ interface Slide {
   info: string;
   description: string;
   imageUrl: string;
-  id:number
+  id: number
 }
 
 
@@ -120,6 +120,8 @@ export class HomeComponent implements OnInit, AfterViewInit {
     // }
   };
 
+  isShow = false; // Track scroll status
+
 
   //  *********************************************
   //  *********************************************
@@ -134,7 +136,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
       info: '2024 | Shonen, Sport, Thriller',
       description: 'High school soccer players from across Japan gather for a controversial project designed to create the best and most egoistic striker in the world.',
       imageUrl: 'assets/featured/blue-lock-anime.jpg',
-      id:1
+      id: 1
     },
     {
       title: 'Solo Leveling',
@@ -142,7 +144,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
       info: '2025 | Action, Adventure, Survival',
       description: 'The adventures of Sung Jinwoo in a world that is constantly threatened by monsters and evil forces. In his battles Sung transforms himself from the weakest hunter of all mankind to one of the strongest hunters in existence.',
       imageUrl: 'assets/featured/solo-leveling-anime.jpg',
-      id:2
+      id: 2
     },
     // {
     //   title: 'Tokyo Ghoul',
@@ -158,9 +160,11 @@ export class HomeComponent implements OnInit, AfterViewInit {
       info: '2024 | Action, Adventure, Comedy',
       description: 'Haruka Sakura has no interest in weaklings, only the strongest fighters. Starting at Furin High, a school known for student brawlers who protect their town, Haruka seeks to battle his way to the top.',
       imageUrl: 'assets/posters/wind-braker-poster.jpeg',
-      id:3
+      id: 3
     },
   ];
+
+  @ViewChild('targetElement') targetElement!: ElementRef;
 
   constructor(
     private api: ApiService,
@@ -187,16 +191,16 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     // setTimeout(() => {
-      // Object.assign(this.webCarouselSwiper.nativeElement, this.swiperConfigCarouselWeb);
-      // this.webCarouselSwiper.nativeElement.initialize();
-  
-      // Object.assign(this.mobCarouselSwiper.nativeElement, this.swiperConfigCarouselMob);
-      // this.mobCarouselSwiper.nativeElement.initialize();
+    // Object.assign(this.webCarouselSwiper.nativeElement, this.swiperConfigCarouselWeb);
+    // this.webCarouselSwiper.nativeElement.initialize();
+
+    // Object.assign(this.mobCarouselSwiper.nativeElement, this.swiperConfigCarouselMob);
+    // this.mobCarouselSwiper.nativeElement.initialize();
     // }, 1500);
-    
+
     Object.assign(this.latestSlides.nativeElement, this.swiperSlidesConfig);
     this.latestSlides.nativeElement.initialize();
-    
+
     Object.assign(this.recommendationSlides.nativeElement, this.swiperSlidesConfig);
     this.recommendationSlides.nativeElement.initialize();
 
@@ -220,20 +224,39 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
 
     const links = this.elRef.nativeElement.querySelectorAll('.nav-links a[href^="#"]');
-      links.forEach((link: HTMLAnchorElement) => {
+    links.forEach((link: HTMLAnchorElement) => {
       link.addEventListener('click', (event: Event) => {
         event.preventDefault();
         const targetId = link.getAttribute('href')?.substring(1); // Remove #
         const targetElement = document.getElementById(targetId!);
         if (targetElement) {
-          targetElement.scrollIntoView({behavior: 'smooth'});
+          targetElement.scrollIntoView({ behavior: 'smooth' });
         }
       });
     });
 
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const nav = document.querySelector('nav')
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            nav?.classList.remove('scrolled');
+            nav?.classList.add('transparent');
+            this.isShow = false;
+          } else {
+            nav?.classList.remove('transparent');
+            nav?.classList.add('scrolled');
+            this.isShow = true;
+          }
+        });
+      },
+      {
+        root: null,         // Observe the viewport
+        threshold: 0.1      // Trigger when 10% of the element is visible
+      }
+    );
 
-
-
+    observer.observe(this.targetElement.nativeElement);
   }
 
 
@@ -267,7 +290,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
 
 
-    //  *********************************
+  //  *********************************
   //  *********************************
   // TODO ******** L A T E S T ********
   //  *********************************
@@ -293,7 +316,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
 
-  
+
   //  ***************************************************
   //  ***************************************************
   // TODO ******** R E C O M M E N D A T I O N S ********
@@ -383,7 +406,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
         this.selectedSeasonNumber = data[0].season.toString();
         this.sectionEpisodes = data[0].episodes.splice(0, 7);
         // console.log(this.sectionEpisodes);
-        
+
       });
     })
   }
@@ -396,7 +419,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
     this._change.detectChanges();
   }
 
-    viewEpisode(episode, type) {
+  viewEpisode(episode, type) {
     // const dialogRef = this.dialog.open(PlayerComponent, {
     //   id: 'cloud-plyr-idx',
     //   width: '100vw',
