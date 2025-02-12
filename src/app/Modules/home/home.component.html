@@ -9,10 +9,37 @@
       <a class="nv-item" href="#popular">Popular</a>
     </div>
     <div class="nav-right">
-      <input type="search" placeholder="Search..." class="search-box">
+      <!-- <input type="search" placeholder="Search..." class="search-box" > -->
       <!-- <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
         <circle cx="12" cy="12" r="3" />
       </svg> -->
+
+      
+      <div class="search-box">
+        <input id="searchinput" type="text" class="search-input" placeholder="Search for anime" [(ngModel)]="searchQuery" (focus)="onFocus()" (input)="onSearch()" (blur)="onBlur()">
+        <a class="search-btn">
+          <mat-icon>search</mat-icon>
+        </a>
+      </div>
+        <div class="search-container">
+          @if (isSearchActive) {
+            <div class="search-results" [ngStyle]="{'overflow-y' : results.length > 4 ? 'scroll' : ''}">
+              @if (results.length === 0) {
+                <div class="no-results">No data found</div>
+              } @else {
+                @for (result of results; track result.name) {
+                  <div class="search-result" routerLink="/{{result.id}}">
+                    <img [src]="result.poster" [alt]="result.name">
+                    <div class="search-result-content">
+                      <div class="search-result-title">{{ result.name }}</div>
+                      <!-- <div class="search-result-subtitle">{{ result.subtitle }}</div> -->
+                    </div>
+                  </div>
+                }
+              }
+            </div>
+          }
+        </div>
     </div>
   </nav>
 

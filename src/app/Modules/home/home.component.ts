@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, HostListener, OnInit, Renderer2, ViewChild, ViewEncapsulation } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, HostListener, OnDestroy, OnInit, Renderer2, ViewChild, ViewEncapsulation } from '@angular/core';
 // import { ApiService } from 'src/app/shared/api.service';
 import { ApiService } from '../../shared/api.service';
 import { collection, Firestore, onSnapshot, deleteDoc, updateDoc, doc, getDocs, where, query } from '@angular/fire/firestore';
@@ -8,6 +8,7 @@ import { ThemeHelpersService } from '../../shared/theme-helpers.service';
 import { getMobile } from '../../shared/theme-helpers.service';
 import { SwiperOptions } from 'swiper/types';
 import { SwiperContainer } from 'swiper/element';
+import { Subject, debounceTime, distinctUntilChanged, switchMap, takeUntil } from 'rxjs';
 
 
 interface Slide {
@@ -26,7 +27,7 @@ interface Slide {
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit, AfterViewInit {
+export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @ViewChild('webCarouselSwiper', { static: false }) webCarouselSwiper!: ElementRef<SwiperContainer>;
   @ViewChild('mobCarouselSwiper', { static: false }) mobCarouselSwiper!: ElementRef<SwiperContainer>;
@@ -164,6 +165,13 @@ export class HomeComponent implements OnInit, AfterViewInit {
     },
   ];
 
+  
+  searchQuery = '';
+  results: any[] = [];
+  isSearchActive = false;
+  private searchSubject = new Subject<string>();
+  private destroy$ = new Subject<void>();
+
   @ViewChild('targetElement') targetElement!: ElementRef;
 
   constructor(
@@ -174,7 +182,8 @@ export class HomeComponent implements OnInit, AfterViewInit {
     private _route: ActivatedRoute,
     private _router: Router,
     private renderer: Renderer2,
-    private elRef: ElementRef
+    private elRef: ElementRef,
+    private themeService: ThemeHelpersService
   ) { }
 
 
@@ -187,6 +196,20 @@ export class HomeComponent implements OnInit, AfterViewInit {
     this.getLatests();
     this.getSectionAnime();
 
+    this.searchSubject.pipe(
+      debounceTime(300),
+      distinctUntilChanged(),
+      switchMap(query => this.themeService.search(query)),
+      takeUntil(this.destroy$)
+    ).subscribe(results => {
+      this.results = results;
+    });
+
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   ngAfterViewInit(): void {
@@ -308,6 +331,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
         });
 
         this.latestList = data;
+        this.setAnimeToStoarge(this.latestList);
         this.loadingLatest = false;
         // console.log(this.latestList);
         this._change.detectChanges();
@@ -335,6 +359,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
         });
 
         this.recommendationList = data;
+        this.setAnimeToStoarge(this.recommendationList);
         this.loadingRecommed = false;
         this._change.detectChanges();
       })
@@ -361,6 +386,10 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
         this.popularList = data;
         // console.log(this.popularList);
+
+        setTimeout(() => {
+          this.setAnimeToStoarge(this.popularList);
+        }, 500);
         this.loadingPopular = false;
         this._change.detectChanges();
       })
@@ -438,6 +467,42 @@ export class HomeComponent implements OnInit, AfterViewInit {
     //     });
     //   dialogRef.componentInstance.data = episode;
     // }
+  }
+
+  onFocus() {
+    this.isSearchActive = true;
+    this.searchSubject.next(this.searchQuery);
+  }
+  
+  onSearch(){
+    this.searchSubject.next(this.searchQuery);
+  }
+
+  onBlur() {
+    // Delay hiding results to allow for result selection
+    setTimeout(() => {
+      this.isSearchActive = false;
+    }, 200);
+  }
+
+  // ngDoCheck() {
+  //   if (this.searchQuery !== this.searchSubject.getValue()) {
+  //     this.searchSubject.next(this.searchQuery);
+  //   }
+  // }
+
+
+  setAnimeToStoarge(array) {
+    const list = JSON.parse(localStorage.getItem('anime-list')!) ?? [];
+    if (list.length > 0) {
+      const combined = [...list, ...array];
+      const newList = combined.filter(
+        (item, index, self) => index === self.findIndex((t) => t.id === item.id)
+      );
+      localStorage.setItem('anime-list', JSON.stringify(newList));
+    } else {
+      localStorage.setItem('anime-list', JSON.stringify(array));
+    }
   }
 
 }

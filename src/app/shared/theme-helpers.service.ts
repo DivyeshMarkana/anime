@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Subject, Observable } from 'rxjs';
+import { Subject, Observable, of } from 'rxjs';
 declare var $: any;
 
 @Injectable()
@@ -52,6 +52,19 @@ export class ThemeHelpersService {
             callback(base64data);
         };
     }
+
+
+    private sampleData: any[] = JSON.parse(localStorage.getItem('anime-list')!);
+      search(query: string): Observable<any[]> {
+        if(query && query !== ''){
+            const results = this.sampleData.filter(item => 
+              item.name.toLowerCase().includes(query.toLowerCase())
+            );
+            return of(results);
+        } else {
+            return of([]);
+        }
+      }
 }
 
 export function getMobile() {
