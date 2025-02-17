@@ -7,14 +7,17 @@
                     <mat-icon>arrow_back</mat-icon>
                     <span class="back-txt">Back to home</span>
                 </div>
-                
-                <video id="poster-video" #posterVideo class="w-full h-full object-cover" muted loop autoplay [src]="selectedSeason.teaser"></video>
+
+                <video id="poster-video" #posterVideo
+                    class="w-full h-full object-cover" muted loop autoplay
+                    [src]="selectedSeason.teaser"></video>
                 <div class="overlay"></div>
 
                 <div class="season_title" *ngIf="animeDetails">
                     <!-- <h2 class="season_name">Wind Breaker</h2> -->
                     <h2 class="season_name">{{animeDetails.name}}</h2>
-                    <p class="season_number">Season {{selectedSeason['season']}}</p>
+                    <p class="season_number">Season
+                        {{selectedSeason['season']}}</p>
                 </div>
 
                 <button mat-raised-button color="primary" class="watch_now_btn"
@@ -25,52 +28,185 @@
             </div>
             <div class="ctn">
                 <div class="seasons">
-                    <div class="season-item" (click)="selectSeason(season.season)" *ngFor="let season of seasons" [ngClass]="season.season == selectedSeasonNumber ? 'selected-season' : ''">
+                    <div class="season-item"
+                        (click)="selectSeason(season.season)"
+                        *ngFor="let season of seasons"
+                        [ngClass]="season.season == selectedSeasonNumber ? 'selected-season' : ''">
                         Season {{ season.season }}
                     </div>
                 </div>
-                
-                <div class="episode_list">
-                    <div class="episode_item" *ngFor="let episode of episodes">
-                        <div class="ep_img_box" (click)="viewEpisode(episode, 'play')">
-                            <img class="episode_img" [src]="selectedSeason['poster']" alt="">
 
-                            <div class="ep-count-box" [ngClass]="episode.isFiller ? 'filler-ep' : ''"></div>
-                            <div class="ep-count">{{episode.episodeNumber}}</div>
-    
-                            <div class="overlay">
-                                <mat-icon>play_circle_outlined</mat-icon>
+                <ng-container *ngIf="isGridView">
+                    <div style="display: flex; flex-direction: column;">
+                        <div style="margin-bottom: 2rem; place-self: start; margin-left: 2rem;">
+                            <ng-container *ngIf="isGridView">
+                                <p style="display: flex; align-items: center; cursor: pointer;" (click)="isGridView = false">
+                                    <i
+                                        class="fas fa-th grid-ico">
+                                    </i>
+                                    <span class="layout-txt">
+                                        Grid view
+                                    </span>
+                                </p>
+                            </ng-container>
+
+                            <ng-container *ngIf="!isGridView">
+                                <p style="display: flex; align-items: center; cursor: pointer;" (click)="isGridView = true">
+                                    <i
+                                        class="fas fa-list-ul grid-ico">
+                                    </i>
+                                    <span class="layout-txt">
+                                        List view
+                                    </span>
+                                </p>
+                            </ng-container>
+                        </div>
+                        <div class="episode_grid">
+                            <div class="episode_item"
+                                *ngFor="let episode of episodes">
+                                <div class="ep_img_box"
+                                    (click)="viewEpisode(episode, 'play')">
+                                    <img class="episode_img"
+                                        [src]="selectedSeason['poster']" alt>
+
+                                    <div class="ep-count-box"
+                                        [ngClass]="episode.isFiller ? 'filler-ep' : ''"></div>
+                                    <div
+                                        class="ep-count">{{episode.episodeNumber}}</div>
+
+                                    <div class="overlay">
+                                        <mat-icon>play_circle_outlined</mat-icon>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+
+                </ng-container>
+
+                <ng-container *ngIf="!isGridView">
+                    <div style="display: flex; flex-direction: column;">
+                        <div style="margin-bottom: 2rem; place-self: start; margin-left: 2rem;">
+                            <ng-container *ngIf="isGridView">
+                                <p style="display: flex; align-items: center; cursor: pointer;" (click)="isGridView = false">
+                                    <i
+                                        class="fas fa-th grid-ico">
+                                    </i>
+                                    <span class="layout-txt">
+                                        Grid view
+                                    </span>
+                                </p>
+                            </ng-container>
+
+                            <ng-container *ngIf="!isGridView">
+                                <p style="display: flex; align-items: center; cursor: pointer;" (click)="isGridView = true">
+                                    <i
+                                        class="fas fa-list-ul grid-ico">
+                                    </i>
+                                    <span class="layout-txt">
+                                        List view
+                                    </span>
+                                </p>
+                            </ng-container>
+                        </div>
+
+                        <div class="episode_list">
+                            <div class="episode_item"
+                                (click)="viewEpisode(episode, 'play')"
+                                *ngFor="let episode of episodes">
+                                <div
+                                    style="display: flex; align-items: center; cursor: pointer;">
+                                    <div>
+                                        #{{episode.episodeNumber}}
+                                    </div>
+
+                                    <div class="ep-title"
+                                        style>
+                                        {{episode.title}}
+                                    </div>
+                                </div>
+
+                                <mat-icon
+                                    class="ep-icon">play_circle_outlined</mat-icon>
+                            </div>
+                        </div>
+
+                    </div>
+                </ng-container>
+
             </div>
 
-
             <div class="mob-ep-list">
-                <div class="season_box" id="season_box">
+
+                <div class="season_box" id="season_box"
+                    style="display: flex; justify-content: space-between; align-items: center;">
+                    <!-- <div > -->
                     <mat-form-field appearance="outline">
-                        <mat-select [(ngModel)]="selectedSeasonNumber" (selectionChange)="selectSeason($event.value)">
-                            <mat-option value="{{ season.season }}" *ngFor="let season of seasons">Season {{
+                        <mat-select [(ngModel)]="selectedSeasonNumber"
+                            (selectionChange)="selectSeason($event.value)">
+                            <mat-option value="{{ season.season }}"
+                                *ngFor="let season of seasons">Season {{
                                 season.season }}</mat-option>
                         </mat-select>
                     </mat-form-field>
+                    <!-- </div> -->
+
+                    <div>
+                        <ng-container *ngIf="isGridView">
+                            <i (click)="isGridView = false"
+                                class="fas fa-th grid-ico"></i>
+                        </ng-container>
+
+                        <ng-container *ngIf="!isGridView">
+                            <i (click)="isGridView = true"
+                                class="fas fa-list-ul grid-ico"></i>
+                        </ng-container>
+                    </div>
                 </div>
 
-                <div class="episode_list">
-                    <div class="episode_item" *ngFor="let episode of episodes">
-                        <div class="ep_img_box" (click)="viewEpisode(episode, 'play')">
-                            <img class="episode_img" [src]="selectedSeason['poster']" alt="">
+                <ng-container *ngIf="isGridView">
+                    <div class="episode_grid">
+                        <div class="episode_item"
+                            *ngFor="let episode of episodes">
+                            <div class="ep_img_box"
+                                (click)="viewEpisode(episode, 'play')">
+                                <img class="episode_img"
+                                    [src]="selectedSeason['poster']" alt>
 
-                            <div class="ep-count-box" [ngClass]="episode.isFiller ? 'filler-ep' : ''"></div>
-                            <div class="ep-count">{{episode.episodeNumber}}</div>
-    
-                            <div class="overlay">
-                                <mat-icon>play_circle_outlined</mat-icon>
+                                <div class="ep-count-box"
+                                    [ngClass]="episode.isFiller ? 'filler-ep' : ''"></div>
+                                <div
+                                    class="ep-count">{{episode.episodeNumber}}</div>
+
+                                <div class="overlay">
+                                    <mat-icon>play_circle_outlined</mat-icon>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </ng-container>
+
+                <ng-container *ngIf="!isGridView">
+                    <div class="episode_list">
+                        <div class="episode_item"
+                            (click)="viewEpisode(episode, 'play')"
+                            *ngFor="let episode of episodes">
+                            <div style="display: flex; align-items: center; cursor: pointer;">
+                                <div>
+                                    #{{episode.episodeNumber}}
+                                </div>
+
+                                <div class="ep-title"
+                                    style>
+                                    {{episode.title}}
+                                </div>
+                            </div>
+
+                            <mat-icon
+                                class="ep-icon">play_circle_outlined</mat-icon>
+                        </div>
+                    </div>
+                </ng-container>
             </div>
         </ng-container>
     </ng-container>

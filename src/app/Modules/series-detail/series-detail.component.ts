@@ -26,6 +26,8 @@ export class SeriesDetailComponent implements OnInit, AfterViewInit {
   qParams: any = null;
   animeDetails: any = null;
 
+  isGridView = false;
+
   constructor(
     private api: ApiService,
     private firestore: Firestore,
