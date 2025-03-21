@@ -17,6 +17,9 @@ import { MaterialModule } from './material/material.module';
 import { DashboardComponent } from './Modules/dashboard/dashboard.component';
 import { ThemeHelpersService } from './shared/theme-helpers.service';
 import { PlayerModule } from './common/player/player.module';
+import { AuthModule } from './core/auth/auth.module';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './core/auth/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -29,12 +32,18 @@ import { PlayerModule } from './common/player/player.module';
     PlyrModule,
     PlayerModule,
     AppRoutingModule,
-    MaterialModule
+    MaterialModule,
+    AuthModule
   
   ],
   providers: [
     ApiService,
     ThemeHelpersService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+  },
 
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),

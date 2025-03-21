@@ -26,7 +26,7 @@ export class SeriesDetailComponent implements OnInit, AfterViewInit {
   qParams: any = null;
   animeDetails: any = null;
 
-  isGridView = false;
+  isGridView = window.innerWidth > 768 ? true : false;
 
   constructor(
     private api: ApiService,
