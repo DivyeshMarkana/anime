@@ -20,6 +20,7 @@ import { PlayerModule } from './common/player/player.module';
 import { AuthModule } from './core/auth/auth.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './core/auth/auth.interceptor';
+import { MegaPlayerModule } from './common/mega-player/mega-player.module';
 
 @NgModule({
   declarations: [
@@ -31,10 +32,11 @@ import { AuthInterceptor } from './core/auth/auth.interceptor';
     BrowserModule,
     PlyrModule,
     PlayerModule,
+    MegaPlayerModule,
     AppRoutingModule,
     MaterialModule,
     AuthModule
-  
+
   ],
   providers: [
     ApiService,
@@ -43,7 +45,7 @@ import { AuthInterceptor } from './core/auth/auth.interceptor';
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
       multi: true
-  },
+    },
 
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),

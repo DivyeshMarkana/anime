@@ -7,6 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from '../../shared/api.service';
 import { ThemeHelpersService } from '../../shared/theme-helpers.service';
 import { PlayerComponent } from '../../common/player/player.component';
+import { MegaPlayerComponent } from '../../common/mega-player/mega-player.component';
 
 @Component({
   selector: 'app-series-detail',
@@ -16,11 +17,11 @@ import { PlayerComponent } from '../../common/player/player.component';
 })
 export class SeriesDetailComponent implements OnInit, AfterViewInit {
 
-  @ViewChild('posterVideo') public posterVideo : ElementRef<HTMLVideoElement>
+  @ViewChild('posterVideo') public posterVideo: ElementRef<HTMLVideoElement>
 
   seasons: any = [];
   episodes: any = [];
-  selectedSeason :any = null
+  selectedSeason: any = null
   selectedSeasonNumber = '-1';
   loading = true;
   qParams: any = null;
@@ -48,14 +49,11 @@ export class SeriesDetailComponent implements OnInit, AfterViewInit {
       }
     });
   }
-  
+
 
   ngOnInit(): void {
     this.getAnimeDetails(this._route.snapshot.params['id']);
-    // alert(navigator.userAgent);
-    // alert(window.innerHeight);
-    // alert(window.innerWidth);
-    
+
   }
 
   ngAfterViewInit(): void {
@@ -99,7 +97,8 @@ export class SeriesDetailComponent implements OnInit, AfterViewInit {
             if (season && (season['episodes'] && season['episodes'].length > 0)) {
               const episode = season['episodes'].find(x => x.episodeNumber == this.qParams['ep']);
               if (episode) {
-                const dialogRef = this.dialog.open(PlayerComponent, {
+                // const dialogRef = this.dialog.open(PlayerComponent, {
+                const dialogRef = this.dialog.open(MegaPlayerComponent, {
                   // id: 'cloud-plyr-idx',
                   width: '100vw',
                   maxWidth: '100vw',
@@ -125,8 +124,8 @@ export class SeriesDetailComponent implements OnInit, AfterViewInit {
   }
 
   viewEpisode(episode, type) {
-      // console.log(episode.episodeNumber);
-      // return;
+    // console.log(episode.episodeNumber);
+    // return;
     // this._router.navigate([this._route.snapshot.paramMap.get('id') + `/video/${episode.episodeNumber}`]);
 
 
@@ -136,7 +135,8 @@ export class SeriesDetailComponent implements OnInit, AfterViewInit {
 
 
 
-    const dialogRef = this.dialog.open(PlayerComponent, {
+    // const dialogRef = this.dialog.open(PlayerComponent, {
+    const dialogRef = this.dialog.open(MegaPlayerComponent, {
       id: 'cloud-plyr-idx',
       width: '100vw',
       maxWidth: '100vw',
@@ -144,7 +144,7 @@ export class SeriesDetailComponent implements OnInit, AfterViewInit {
       disableClose: true
     });
 
-    if(type == 'play'){
+    if (type == 'play') {
       const queryParams = { season: this.selectedSeasonNumber, ep: episode.episodeNumber };
       this._router.navigate(
         [],
@@ -153,7 +153,7 @@ export class SeriesDetailComponent implements OnInit, AfterViewInit {
           queryParams: queryParams,
         });
       dialogRef.componentInstance.data = episode;
-    } else if(type == 'watch-now'){
+    } else if (type == 'watch-now') {
 
       if (this.selectedSeason) {
         const episode = this.selectedSeason['episodes'][0]
@@ -164,9 +164,9 @@ export class SeriesDetailComponent implements OnInit, AfterViewInit {
             relativeTo: this._route,
             queryParams: queryParams,
           });
-    
+
         dialogRef.componentInstance.data = episode;
-        
+
       }
     }
   }

@@ -1,0 +1,18 @@
+<!-- <ng-container *ngIf="!loading"> -->
+<div class="relative h-full">
+    <!-- <iframe width="640" height="360" frameborder="0" [src]="URL" allowfullscreen></iframe> -->
+    <!-- <iframe width="640" height="360" frameborder="0"
+        src="https://mega.nz/embed/uxBC1KYR#Lt4u02v_b64v2cUhd0HRIG4yNia2L7fGxvzNYbmRHyE" allowfullscreen></iframe> -->
+    <div [innerHTML]="HTML">
+
+    </div>
+
+
+    <!-- <div class="mega-custom-overlay"></div> -->
+</div>
+<!-- </ng-container> -->
+<ng-container *ngIf="loading">
+    <div class="loading">
+        <span class="loader"></span>
+    </div>
+</ng-container>
