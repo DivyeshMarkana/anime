@@ -32,15 +32,18 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('webCarouselSwiper', { static: false }) webCarouselSwiper!: ElementRef<SwiperContainer>;
   @ViewChild('mobCarouselSwiper', { static: false }) mobCarouselSwiper!: ElementRef<SwiperContainer>;
   @ViewChild('latestSlides', { static: false }) latestSlides!: ElementRef<SwiperContainer>;
+  @ViewChild('trendingSlides', { static: false }) trendingSlides!: ElementRef<SwiperContainer>;
   @ViewChild('recommendationSlides', { static: false }) recommendationSlides!: ElementRef<SwiperContainer>;
   @ViewChild('popularSlides', { static: false }) popularSlides!: ElementRef<SwiperContainer>;
 
   // featuredList: any = [];
+  trendingList: any = [];
   recommendationList: any = [];
   latestList: any = [];
   popularList: any = [];
   sectionAnime: any = null;
 
+  loadingTrending = false;
   loadingLatest = true;
   loadingRecommed = true;
   loadingPopular = true;
@@ -165,7 +168,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     },
   ];
 
-  
+
   searchQuery = '';
   results: any[] = [];
   isSearchActive = false;
@@ -191,6 +194,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnInit(): void {
     // this.getFeaturedList();
+    this.getTrendings();
     this.getPopularsAnime();
     this.getRecommendations();
     this.getLatests();
@@ -223,6 +227,9 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 
     Object.assign(this.latestSlides.nativeElement, this.swiperSlidesConfig);
     this.latestSlides.nativeElement.initialize();
+
+    Object.assign(this.trendingSlides.nativeElement, this.swiperSlidesConfig);
+    this.trendingSlides.nativeElement.initialize();
 
     Object.assign(this.recommendationSlides.nativeElement, this.swiperSlidesConfig);
     this.recommendationSlides.nativeElement.initialize();
@@ -321,7 +328,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 
   getLatests() {
     this.loadingLatest = true;
-    const q = query(collection(this.firestore, "anime"), where("groups", "array-contains", 'Latest'));
+    const q = query(collection(this.firestore, "anime"), where("groups", "array-contains", 'Latest'), where("isPublish", "==", true));
 
     (() => {
       getDocs(q).then((snapshot) => {
@@ -329,6 +336,8 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
         snapshot.forEach(doc => {
           data.push({ ...doc.data(), id: doc.id })
         });
+
+        console.log(data);
 
         this.latestList = data;
         this.setAnimeToStoarge(this.latestList);
@@ -341,6 +350,31 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
 
+  //  ***************************************
+  //  ***************************************
+  // TODO ******** T R E N D I N G S ********
+  //  ***************************************
+  //  ***************************************
+
+  getTrendings() {
+    this.loadingTrending = true;
+    const q = query(collection(this.firestore, "anime"), where("groups", "array-contains", 'Trending'), where("isPublish", "==", true));
+
+    (() => {
+      getDocs(q).then((snapshot) => {
+        let data: any[] = []
+        snapshot.forEach(doc => {
+          data.push({ ...doc.data(), id: doc.id })
+        });
+
+        this.trendingList = data;
+        this.loadingTrending = false;
+        this._change.detectChanges();
+      })
+    })();
+  }
+
+
   //  ***************************************************
   //  ***************************************************
   // TODO ******** R E C O M M E N D A T I O N S ********
@@ -349,7 +383,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 
   getRecommendations() {
     this.loadingRecommed = true;
-    const q = query(collection(this.firestore, "anime"), where("groups", "array-contains", 'Recommendation'));
+    const q = query(collection(this.firestore, "anime"), where("groups", "array-contains", 'Recommendation'), where("isPublish", "==", true));
 
     (() => {
       getDocs(q).then((snapshot) => {
@@ -357,6 +391,9 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
         snapshot.forEach(doc => {
           data.push({ ...doc.data(), id: doc.id })
         });
+
+        // console.log(data);
+
 
         this.recommendationList = data;
         this.setAnimeToStoarge(this.recommendationList);
@@ -375,7 +412,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 
   getPopularsAnime() {
     this.loadingPopular = true;
-    const q = query(collection(this.firestore, "anime"), where("groups", "array-contains", 'Most Popular'));
+    const q = query(collection(this.firestore, "anime"), where("groups", "array-contains", 'Most Popular'), where("isPublish", "==", true));
 
     (() => {
       getDocs(q).then((snapshot) => {
@@ -473,8 +510,8 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     this.isSearchActive = true;
     this.searchSubject.next(this.searchQuery);
   }
-  
-  onSearch(){
+
+  onSearch() {
     this.searchSubject.next(this.searchQuery);
   }
 

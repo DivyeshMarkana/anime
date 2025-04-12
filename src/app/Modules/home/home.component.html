@@ -5,7 +5,7 @@
     <div class="nav-links">
       <a class="" href="#hero">Cloud <span style="color: var(--primary-green-light);">Anime</span></a>
       <a class="nv-item" href="#latest">Latest</a>
-      <a class="nv-item" href="#">Trending</a>
+      <a class="nv-item" href="#trending">Trending</a>
       <a class="nv-item" href="#popular">Popular</a>
     </div>
     <div class="nav-right">
@@ -14,32 +14,33 @@
         <circle cx="12" cy="12" r="3" />
       </svg> -->
 
-      
+
       <div class="search-box">
-        <input id="searchinput" type="text" class="search-input" placeholder="Search for anime" [(ngModel)]="searchQuery" (focus)="onFocus()" (input)="onSearch()" (blur)="onBlur()">
+        <input id="searchinput" type="text" class="search-input" placeholder="Search for anime"
+          [(ngModel)]="searchQuery" (focus)="onFocus()" (input)="onSearch()" (blur)="onBlur()">
         <a class="search-btn">
           <mat-icon>search</mat-icon>
         </a>
       </div>
-        <div class="search-container">
-          @if (isSearchActive) {
-            <div class="search-results" [ngStyle]="{'overflow-y' : results.length > 4 ? 'scroll' : ''}">
-              @if (results.length === 0) {
-                <div class="no-results">No data found</div>
-              } @else {
-                @for (result of results; track result.name) {
-                  <div class="search-result" routerLink="/{{result.id}}">
-                    <img [src]="result.poster" [alt]="result.name">
-                    <div class="search-result-content">
-                      <div class="search-result-title">{{ result.name }}</div>
-                      <!-- <div class="search-result-subtitle">{{ result.subtitle }}</div> -->
-                    </div>
-                  </div>
-                }
-              }
+      <div class="search-container">
+        @if (isSearchActive) {
+        <div class="search-results" [ngStyle]="{'overflow-y' : results.length > 4 ? 'scroll' : ''}">
+          @if (results.length === 0) {
+          <div class="no-results">No data found</div>
+          } @else {
+          @for (result of results; track result.name) {
+          <div class="search-result" routerLink="/{{result.id}}">
+            <img [src]="result.poster" [alt]="result.name">
+            <div class="search-result-content">
+              <div class="search-result-title">{{ result.name }}</div>
+              <!-- <div class="search-result-subtitle">{{ result.subtitle }}</div> -->
             </div>
+          </div>
+          }
           }
         </div>
+        }
+      </div>
     </div>
   </nav>
 
@@ -49,19 +50,21 @@
 
   <div class="hero" id="hero">
     <div class="hero-content">
-        <h1>Frieren Beyond Journey's End</h1>
-        <!-- <h1>Welcome on site<br>Cloud Anime</h1> -->
-        <p>Elf mage Frieren and her fellow adventurers have defeated the Demon King and brought peace to the land. But Frieren will long outlive the rest of her former party. How will she come to understand what life means to the people around her?</p>
-        <!-- <p>Following a betrayal, a young man left for dead is reborn as a powerful devil-human hybrid after merging with his pet devil and is soon enlisted into an organization dedicated to hunting devils.</p> -->
-        <div class="date-badge">
-            <div class="date-circle" routerLink="/fXzcmoCmXHtdi8mYN0C9">
-              <mat-icon>play_circle_outlined</mat-icon>
-            </div>
-            <div class="date-text">
-                22.03.2024
-                <span>New Anime Series</span>
-            </div>
+      <h1>Frieren Beyond Journey's End</h1>
+      <!-- <h1>Welcome on site<br>Cloud Anime</h1> -->
+      <p>Elf mage Frieren and her fellow adventurers have defeated the Demon King and brought peace to the land. But
+        Frieren will long outlive the rest of her former party. How will she come to understand what life means to the
+        people around her?</p>
+      <!-- <p>Following a betrayal, a young man left for dead is reborn as a powerful devil-human hybrid after merging with his pet devil and is soon enlisted into an organization dedicated to hunting devils.</p> -->
+      <div class="date-badge">
+        <div class="date-circle" routerLink="/fXzcmoCmXHtdi8mYN0C9">
+          <mat-icon>play_circle_outlined</mat-icon>
         </div>
+        <div class="date-text">
+          22.03.2024
+          <span>New Anime Series</span>
+        </div>
+      </div>
     </div>
     <div class="hero-image"></div>
     <!-- <div class="dots">
@@ -70,7 +73,7 @@
         <div class="dot"></div>
         <div class="dot"></div>
     </div> -->
-</div>
+  </div>
 
   <!-- <div id="top-section-web">
         <swiper-container #webCarouselSwiper init="false"
@@ -118,6 +121,42 @@
     </swiper-container>
   </div> -->
 
+  <!-- *********************************** -->
+  <!-- *********************************** -->
+  <!-- TODO: T R E N D I N G - A N I M E S -->
+  <!-- *********************************** -->
+  <!-- *********************************** -->
+
+  <!-- style="position: relative; margin-top: -18%; z-index: 4;" -->
+  <section class="container mx-auto px-4 mb-12" id="ani-list" style="margin-top: 2rem;">
+    <h2 id="trending" class="text-2xl font-bold mb-6 uppercase">Trending</h2>
+
+    @if(loadingTrending){
+    <div style="display: flex; align-items: center;">
+      <div *ngFor="let i of [].constructor(8)" class="loading-item skeleton"></div>
+    </div>
+    }
+    <swiper-container #trendingSlides init="false" class="swiper-container" [config]="swiperSlidesConfig">
+      @for (anime of trendingList; track anime.id) {
+      <swiper-slide class="swiper-slide relative" routerLink="/{{anime.id}}">
+        <div class="relative anime-item">
+          <img [src]="anime.poster" [alt]="anime.name" loading="eager" class="w-full h-full object-cover"
+            onerror="this.src= 'assets/posters/poster.jpg'">
+          <div class="absolute bottom-0 left-0 px-2 py-1 text-sm anime-title">
+            <span class="anime-title-txt"> {{ anime.name }}</span>
+            <!-- <span class="anime-title-txt">#{{i + 1}} {{ anime.name }}</span> -->
+          </div>
+          <div class="anime-item-overlay">
+            <mat-icon>play_circle_outline</mat-icon>
+          </div>
+        </div>
+
+      </swiper-slide>
+      }
+    </swiper-container>
+  </section>
+
+
   <!-- ******************************* -->
   <!-- ******************************* -->
   <!-- TODO: L A T E S T - A N I M E S -->
@@ -127,16 +166,20 @@
   <!-- style="position: relative; margin-top: -18%; z-index: 4;" -->
   <section class="container mx-auto px-4 mb-12" id="ani-list" style="margin-top: 2rem;">
     <h2 id="latest" class="text-2xl font-bold mb-6 uppercase">Latest</h2>
-    <swiper-container #latestSlides init="false" class="swiper-container"
-      [config]="swiperSlidesConfig">
+
+    @if(loadingLatest){
+    <div style="display: flex; align-items: center;">
+      <div *ngFor="let i of [].constructor(8)" class="loading-item skeleton"></div>
+    </div>
+    }
+
+    <swiper-container #latestSlides init="false" class="swiper-container" [config]="swiperSlidesConfig">
       @for (anime of latestList; track anime.id) {
       <swiper-slide class="swiper-slide relative" routerLink="/{{anime.id}}">
         <div class="relative anime-item">
-          <img [src]="anime.poster" [alt]="anime.name" loading="eager"
-            class="w-full h-full object-cover"
+          <img [src]="anime.poster" [alt]="anime.name" loading="eager" class="w-full h-full object-cover"
             onerror="this.src= 'assets/posters/poster.jpg'">
-          <div
-            class="absolute bottom-0 left-0 px-2 py-1 text-sm anime-title">
+          <div class="absolute bottom-0 left-0 px-2 py-1 text-sm anime-title">
             <span class="anime-title-txt"> {{ anime.name }}</span>
             <!-- <span class="anime-title-txt">#{{i + 1}} {{ anime.name }}</span> -->
           </div>
@@ -158,17 +201,21 @@
 
   <section class="container mx-auto px-4 mb-12" id="ani-list">
     <h2 class="text-2xl font-bold mb-6 uppercase">Recommendation</h2>
-    <swiper-container #recommendationSlides init="false"
-      class="swiper-container"
-      [config]="swiperSlidesConfig">
+
+    @if(loadingRecommed){
+    <div style="display: flex; align-items: center;">
+      <div *ngFor="let i of [].constructor(8)" class="loading-item skeleton"></div>
+    </div>
+    }
+
+
+    <swiper-container #recommendationSlides init="false" class="swiper-container" [config]="swiperSlidesConfig">
       @for (anime of recommendationList; track anime.id) {
       <swiper-slide class="swiper-slide relative" routerLink="/{{anime.id}}">
         <div class="relative anime-item">
-          <img [src]="anime.poster" [alt]="anime.name" loading="eager"
-            class="w-full h-full object-cover"
+          <img [src]="anime.poster" [alt]="anime.name" loading="eager" class="w-full h-full object-cover"
             onerror="this.src= 'assets/posters/poster.jpg'">
-          <div
-            class="absolute bottom-0 left-0 px-2 py-1 text-sm anime-title">
+          <div class="absolute bottom-0 left-0 px-2 py-1 text-sm anime-title">
             <span class="anime-title-txt"> {{ anime.name }}</span>
             <!-- <span class="anime-title-txt">#{{i + 1}} {{ anime.name }}</span> -->
           </div>
@@ -189,14 +236,11 @@
   <!-- ******************************************* -->
 
   <ng-container *ngIf="sectionAnime">
-    <section id="section-anime"
-      class="container mx-auto mb-4 flex flex-col rounded overflow-hidden">
+    <section id="section-anime" class="container mx-auto mb-4 flex flex-col rounded overflow-hidden">
       <div class="flex section-content">
-        <img [src]="sectionAnime.poster" alt="Iron Man 3"
-          class="sm:w-1/3 max-w-[250px]  object-cover">
+        <img [src]="sectionAnime.poster" alt="Iron Man 3" class="sm:w-1/3 max-w-[250px]  object-cover">
         <div class="p-8 section-detail w-full">
-          <h2
-            class="text-3xl font-bold mb-2 section-title">{{sectionAnime.name}}</h2>
+          <h2 class="text-3xl font-bold mb-2 section-title">{{sectionAnime.name}}</h2>
           <p class="mb-6 section-desc" style="max-width: 800px;">
             Death Note is a supernatural thriller fantasy manga written by
             Tsugumi Oba and illustrated by Takeshi Obata. The work was adapted
@@ -211,16 +255,14 @@
             based on the English word "killer") - some people see him as
             justice, while others see him as a murderer
           </p>
-          <button
-            class="btn btn-primary text-gray-900 px-6 py-2 rounded section-watch-now"
+          <button class="btn btn-primary text-gray-900 px-6 py-2 rounded section-watch-now"
             routerLink="/{{sectionAnime.id}}">Watch Now</button>
         </div>
       </div>
 
       <div class="ctn">
         <div class="seasons">
-          <div class="season-item" (click)="selectSeason(season)"
-            *ngFor="let season of sectionSeasons"
+          <div class="season-item" (click)="selectSeason(season)" *ngFor="let season of sectionSeasons"
             [ngClass]="season.season == selectedSeasonNumber ? 'selected-season' : ''">
             Season {{ season.season }}
           </div>
@@ -231,8 +273,7 @@
             <div class="ep_img_box" (click)="viewEpisode(episode, 'play')">
               <img class="episode_img" [src]="selectedSeason['poster']" alt>
 
-              <div class="ep-count-box"
-                [ngClass]="episode.isFiller ? 'filler-ep' : ''"></div>
+              <div class="ep-count-box" [ngClass]="episode.isFiller ? 'filler-ep' : ''"></div>
               <div class="ep-count">{{episode.episodeNumber}}</div>
 
               <div class="overlay">
@@ -257,16 +298,21 @@
 
   <section class="container mx-auto px-4 mb-[5rem] sm:mb-12" id="ani-list">
     <h2 id="popular" class="text-2xl font-bold mb-6 uppercase">Most popular anime</h2>
-    <swiper-container #popularSlides init="false" class="swiper-container"
-      [config]="swiperSlidesConfig">
+
+    @if(loadingPopular){
+    <div style="display: flex; align-items: center;">
+      <div *ngFor="let i of [].constructor(8)" class="loading-item skeleton"></div>
+    </div>
+    }
+
+
+    <swiper-container #popularSlides init="false" class="swiper-container" [config]="swiperSlidesConfig">
       @for (anime of popularList; track anime.id) {
       <swiper-slide class="swiper-slide relative" routerLink="/{{anime.id}}">
         <div class="relative anime-item">
-          <img [src]="anime.poster" [alt]="anime.name" loading="eager"
-            class="w-full h-full object-cover"
+          <img [src]="anime.poster" [alt]="anime.name" loading="eager" class="w-full h-full object-cover"
             onerror="this.src= 'assets/posters/poster.jpg'">
-          <div
-            class="absolute bottom-0 left-0 px-2 py-1 text-sm anime-title">
+          <div class="absolute bottom-0 left-0 px-2 py-1 text-sm anime-title">
             <span class="anime-title-txt"> {{ anime.name }}</span>
             <!-- <span class="anime-title-txt">#{{i + 1}} {{ anime.name }}</span> -->
           </div>
