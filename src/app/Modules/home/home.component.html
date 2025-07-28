@@ -30,7 +30,7 @@
           } @else {
           @for (result of results; track result.name) {
           <div class="search-result" routerLink="/{{result.id}}">
-            <img [src]="result.poster" [alt]="result.name">
+            <img [src]="result.poster" [alt]="result.name" loading="lazy">
             <div class="search-result-content">
               <div class="search-result-title">{{ result.name }}</div>
               <!-- <div class="search-result-subtitle">{{ result.subtitle }}</div> -->
