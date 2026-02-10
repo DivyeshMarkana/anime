@@ -8,5 +8,6 @@ export const environment = {
     appId: "1:185931984465:web:a5cc7ecbf25477a7475270",
     measurementId: "G-2X5VW5NE4N"
   },
+  SOURCE_URL : 'https://drive.google.com/file/d/',
   production: true
 };

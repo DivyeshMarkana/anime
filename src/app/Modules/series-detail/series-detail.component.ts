@@ -8,6 +8,7 @@ import { ApiService } from '../../shared/api.service';
 import { ThemeHelpersService } from '../../shared/theme-helpers.service';
 import { PlayerComponent } from '../../common/player/player.component';
 import { MegaPlayerComponent } from '../../common/mega-player/mega-player.component';
+import { GdrivePlayerComponent } from '../../common/gdrive-player/gdrive-player.component';
 
 @Component({
   selector: 'app-series-detail',
@@ -98,7 +99,8 @@ export class SeriesDetailComponent implements OnInit, AfterViewInit {
               const episode = season['episodes'].find(x => x.episodeNumber == this.qParams['ep']);
               if (episode) {
                 // const dialogRef = this.dialog.open(PlayerComponent, {
-                const dialogRef = this.dialog.open(MegaPlayerComponent, {
+                // const dialogRef = this.dialog.open(MegaPlayerComponent, {
+                const dialogRef = this.dialog.open(GdrivePlayerComponent, {
                   // id: 'cloud-plyr-idx',
                   width: '100vw',
                   maxWidth: '100vw',
@@ -136,7 +138,8 @@ export class SeriesDetailComponent implements OnInit, AfterViewInit {
 
 
     // const dialogRef = this.dialog.open(PlayerComponent, {
-    const dialogRef = this.dialog.open(MegaPlayerComponent, {
+    // const dialogRef = this.dialog.open(MegaPlayerComponent, {
+    const dialogRef = this.dialog.open(GdrivePlayerComponent, {
       id: 'cloud-plyr-idx',
       width: '100vw',
       maxWidth: '100vw',

@@ -21,6 +21,7 @@ import { AuthModule } from './core/auth/auth.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './core/auth/auth.interceptor';
 import { MegaPlayerModule } from './common/mega-player/mega-player.module';
+import { GdrivePlayerModule } from './common/gdrive-player/gdrive-player.module';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { MegaPlayerModule } from './common/mega-player/mega-player.module';
     PlyrModule,
     PlayerModule,
     MegaPlayerModule,
+    GdrivePlayerModule,
     AppRoutingModule,
     MaterialModule,
     AuthModule

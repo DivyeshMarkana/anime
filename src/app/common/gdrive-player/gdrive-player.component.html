@@ -1,0 +1,29 @@
+<!-- <ng-container *ngIf="!loading"> -->
+<div class="relative h-full">
+
+    <div class="flex items-center playing-header">
+        <img class="back_icn" (click)="close()"
+            src="assets/icons/left-arrow.png" alt>
+        <div style="margin-left: 5px; display: flex; flex-direction: column;">
+            <span
+                style="font-size: 20px;  font-family: 'Work Sans', sans-serif;">#{{epNumber}} - 
+                {{title}}</span>
+            <ng-container *ngIf="data && data.isFiller">
+                <span
+                    style="font-size: 10px; color: #9a9a9a;  font-family: 'Work Sans', sans-serif;">👻
+                    You are watching filler episode</span>
+            </ng-container>
+        </div>
+    </div>
+
+    <iframe
+        [src]="src"
+        allow="autoplay">
+    </iframe>
+</div>
+<!-- </ng-container> -->
+<ng-container *ngIf="loading">
+    <div class="loading">
+        <span class="loader"></span>
+    </div>
+</ng-container>
