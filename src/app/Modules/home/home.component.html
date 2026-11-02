@@ -140,7 +140,7 @@
       @for (anime of trendingList; track anime.id) {
       <swiper-slide class="swiper-slide relative" routerLink="/{{anime.id}}">
         <div class="relative anime-item">
-          <img [src]="anime.poster" [alt]="anime.name" loading="eager" class="w-full h-full object-cover"
+          <img [src]="anime.poster" [alt]="anime.name" class="w-full h-full object-cover"
             onerror="this.src= 'assets/posters/poster.jpg'">
           <div class="absolute bottom-0 left-0 px-2 py-1 text-sm anime-title">
             <span class="anime-title-txt"> {{ anime.name }}</span>

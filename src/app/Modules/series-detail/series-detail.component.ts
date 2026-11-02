@@ -9,6 +9,8 @@ import { ThemeHelpersService } from '../../shared/theme-helpers.service';
 import { PlayerComponent } from '../../common/player/player.component';
 import { MegaPlayerComponent } from '../../common/mega-player/mega-player.component';
 import { GdrivePlayerComponent } from '../../common/gdrive-player/gdrive-player.component';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-series-detail',
@@ -37,7 +39,8 @@ export class SeriesDetailComponent implements OnInit, AfterViewInit {
     private _route: ActivatedRoute,
     private _router: Router,
     private dialog: MatDialog,
-    private themeHelper: ThemeHelpersService
+    private themeHelper: ThemeHelpersService,
+    private sanitizer: DomSanitizer
   ) {
     this._route.params.subscribe((params) => {
       if (params['id']) {
@@ -87,7 +90,28 @@ export class SeriesDetailComponent implements OnInit, AfterViewInit {
       snapshot.forEach(doc => {
         data.push({ ...doc.data(), id: doc.id });
         data.sort((a, b) => a.season - b.season);
+
+
+        data.forEach(x => {
+          if (x.teaser.includes('drive.google.com')) {
+            // const id = x.teaser.split(environment.SOURCE_URL)[1].split('/')[0];
+            // const URL = environment.SOURCE_URL + id + '/preview';
+            // // x.teaser = URL;
+            // x.teaser = this.sanitizer.bypassSecurityTrustResourceUrl(URL);
+
+            // console.log(x);
+            // console.log(URL);
+            console.log(x.teaser);
+          }
+
+          if(x.poster.includes('drive.google.com')){
+            x['poster'] = this.themeHelper.getConvertedMedia(x.poster);
+          }
+        })
         this.seasons = data;
+
+        // console.log(this.seasons);
+
         this.selectedSeason = data[0];
         this.selectedSeasonNumber = data[0].season.toString();
         this.episodes = data[0].episodes;

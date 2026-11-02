@@ -8,9 +8,21 @@
                     <span class="back-txt">Back to home</span>
                 </div>
 
-                <video id="poster-video" #posterVideo
+                <!-- <iframe id="poster-video" #posterVideo class="w-full h-full object-cover"
+                    [src]="selectedSeason.teaser"
+                    allow="autoplay">
+                </iframe> -->
+
+                <iframe
+                     id="poster-video" class="w-full h-full object-cover"
+                    src="https://drive.google.com/file/d/11hbZjdzkMHLk4PtMRm58Z7rF_icdC0Sz/preview?autoplay=1&mute=1"
+                    allow="autoplay; fullscreen"
+                    tabindex="-1"
+                    title="Hero background video"></iframe>
+
+                <!-- <video id="poster-video" #posterVideo
                     class="w-full h-full object-cover" muted loop autoplay
-                    [src]="selectedSeason.teaser"></video>
+                    [src]="selectedSeason.teaser"></video> -->
                 <div class="overlay"></div>
 
                 <div class="season_title" *ngIf="animeDetails">
@@ -38,7 +50,8 @@
 
                 <ng-container *ngIf="isGridView">
                     <div style="display: flex; flex-direction: column;">
-                        <div style="margin-bottom: 2rem; place-self: start; margin-left: 2rem;">
+                        <div
+                            style="margin-bottom: 2rem; place-self: start; margin-left: 2rem;">
                             <!-- <ng-container *ngIf="isGridView">
                                 <p style="display: flex; align-items: center; cursor: pointer;" (click)="isGridView = false">
                                     <i
@@ -86,7 +99,8 @@
 
                 <ng-container *ngIf="!isGridView">
                     <div style="display: flex; flex-direction: column;">
-                        <div style="margin-bottom: 2rem; place-self: start; margin-left: 2rem;">
+                        <div
+                            style="margin-bottom: 2rem; place-self: start; margin-left: 2rem;">
                             <!-- <ng-container *ngIf="isGridView">
                                 <p style="display: flex; align-items: center; cursor: pointer;" (click)="isGridView = false">
                                     <i
@@ -191,7 +205,8 @@
                         <div class="episode_item"
                             (click)="viewEpisode(episode, 'play')"
                             *ngFor="let episode of episodes">
-                            <div style="display: flex; align-items: center; cursor: pointer;">
+                            <div
+                                style="display: flex; align-items: center; cursor: pointer;">
                                 <div>
                                     #{{episode.episodeNumber}}
                                 </div>

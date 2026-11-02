@@ -55,17 +55,26 @@ export class ThemeHelpersService {
 
 
     private sampleData: any[] = JSON.parse(localStorage.getItem('anime-list')!);
-      search(query: string): Observable<any[]> {
-        if(query && query !== ''){
-            const results = this.sampleData.filter(item => 
-              item.name.toLowerCase().includes(query.toLowerCase())
+    search(query: string): Observable<any[]> {
+        if (query && query !== '') {
+            const results = this.sampleData.filter(item =>
+                item.name.toLowerCase().includes(query.toLowerCase())
             );
             return of(results);
         } else {
             return of([]);
         }
-      }
+    }
+
+    getConvertedMedia(url: string) {
+        // if (kind == "image") {
+            let id = url.split('/d/')[1].split('/')[0]
+
+            return "https://drive.google.com/thumbnail?id=" + id
+        // }
+    }
 }
+
 
 export function getMobile() {
     if (window.innerWidth < 600) {

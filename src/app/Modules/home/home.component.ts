@@ -367,9 +367,25 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
           data.push({ ...doc.data(), id: doc.id })
         });
 
+        // console.log(data);
+
+
+        data.forEach(x => {
+          if (x.poster.includes('drive.google.com')) {
+            x['poster'] = this.themeService.getConvertedMedia(x.poster);
+          }
+        })
+        console.log(data);
+
+
         this.trendingList = data;
-        this.loadingTrending = false;
-        this._change.detectChanges();
+
+        console.log(this.trendingList);
+        
+        // setTimeout(() => {
+          this.loadingTrending = false;
+          this._change.detectChanges();
+        // }, 10);
       })
     })();
   }
