@@ -337,7 +337,11 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
           data.push({ ...doc.data(), id: doc.id })
         });
 
-        console.log(data);
+        data.forEach(x => {
+          if (x.poster.includes('drive.google.com')) {
+            x['poster'] = this.themeService.getConvertedMedia(x.poster);
+          }
+        })
 
         this.latestList = data;
         this.setAnimeToStoarge(this.latestList);
@@ -367,25 +371,15 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
           data.push({ ...doc.data(), id: doc.id })
         });
 
-        // console.log(data);
-
-
         data.forEach(x => {
           if (x.poster.includes('drive.google.com')) {
             x['poster'] = this.themeService.getConvertedMedia(x.poster);
           }
         })
-        console.log(data);
-
 
         this.trendingList = data;
-
-        console.log(this.trendingList);
-        
-        // setTimeout(() => {
-          this.loadingTrending = false;
-          this._change.detectChanges();
-        // }, 10);
+        this.loadingTrending = false;
+        this._change.detectChanges();
       })
     })();
   }
@@ -408,8 +402,11 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
           data.push({ ...doc.data(), id: doc.id })
         });
 
-        // console.log(data);
-
+        data.forEach(x => {
+          if (x.poster.includes('drive.google.com')) {
+            x['poster'] = this.themeService.getConvertedMedia(x.poster);
+          }
+        })
 
         this.recommendationList = data;
         this.setAnimeToStoarge(this.recommendationList);
@@ -436,6 +433,12 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
         snapshot.forEach(doc => {
           data.push({ ...doc.data(), id: doc.id })
         });
+
+        data.forEach(x => {
+          if (x.poster.includes('drive.google.com')) {
+            x['poster'] = this.themeService.getConvertedMedia(x.poster);
+          }
+        })
 
         this.popularList = data;
         // console.log(this.popularList);
@@ -466,7 +469,12 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
           data = { ...doc.data(), id: doc.id }
         });
 
+        if (data.poster.includes('drive.google.com')) {
+          data['poster'] = this.themeService.getConvertedMedia(data.poster);
+        }
+
         this.sectionAnime = data;
+
         this.getSeasons(this.sectionAnime.id);
         this._change.detectChanges();
       })
@@ -485,6 +493,11 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
         data.sort((a, b) => a.season - b.season);
         this.sectionSeasons = data;
         this.selectedSeason = data[0];
+
+        if (this.selectedSeason.poster.includes('drive.google.com')) {
+          this.selectedSeason['poster'] = this.themeService.getConvertedMedia(this.selectedSeason.poster);
+        }
+
         this.selectedSeasonNumber = data[0].season.toString();
         this.sectionEpisodes = data[0].episodes.splice(0, 7);
         // console.log(this.sectionEpisodes);

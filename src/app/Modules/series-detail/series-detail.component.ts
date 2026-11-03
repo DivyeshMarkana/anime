@@ -91,30 +91,14 @@ export class SeriesDetailComponent implements OnInit, AfterViewInit {
         data.push({ ...doc.data(), id: doc.id });
         data.sort((a, b) => a.season - b.season);
 
-
-        data.forEach(x => {
-          if (x.teaser.includes('drive.google.com')) {
-            // const id = x.teaser.split(environment.SOURCE_URL)[1].split('/')[0];
-            // const URL = environment.SOURCE_URL + id + '/preview';
-            // // x.teaser = URL;
-            // x.teaser = this.sanitizer.bypassSecurityTrustResourceUrl(URL);
-
-            // console.log(x);
-            // console.log(URL);
-            console.log(x.teaser);
-          }
-
-          if(x.poster.includes('drive.google.com')){
-            x['poster'] = this.themeHelper.getConvertedMedia(x.poster);
-          }
-        })
         this.seasons = data;
-
-        // console.log(this.seasons);
-
         this.selectedSeason = data[0];
         this.selectedSeasonNumber = data[0].season.toString();
         this.episodes = data[0].episodes;
+
+        if (this.selectedSeason.poster.includes('drive.google.com')) {
+          this.selectedSeason['poster'] = this.themeHelper.getConvertedMedia(this.selectedSeason.poster);
+        }
 
         if (this.qParams && this.qParams['season'] && this.qParams['ep']) {
           if (this.qParams['season'] && this.qParams['ep']) {
@@ -144,6 +128,10 @@ export class SeriesDetailComponent implements OnInit, AfterViewInit {
   selectSeason(s) {
     const season = this.seasons.find(x => x.season == s);
     this.selectedSeason = season;
+
+    if (this.selectedSeason.poster.includes('drive.google.com')) {
+      this.selectedSeason['poster'] = this.themeHelper.getConvertedMedia(this.selectedSeason.poster);
+    }
     this.selectedSeasonNumber = s;
     this.episodes = season['episodes'];
     this._change.detectChanges();
