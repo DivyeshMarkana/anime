@@ -1,11 +1,39 @@
-// import * as Hls from 'hls.js';
 import Hls from 'hls.js';
 import { PlyrDriver, PlyrDriverCreateParams, PlyrDriverDestroyParams, PlyrDriverUpdateSourceParams } from '@atom-platform/ngx-plyr';
 import Plyr from 'plyr';
+import { environment } from '../environments/environment';
+
+/**
+ * Attach proxy auth only for requests to our video-proxy origin.
+ * Never send the key to upstream CDNs (e.g. hls.dramahot.top).
+ */
+function isVideoProxyUrl(url: string): boolean {
+  try {
+    const requestUrl = new URL(url, typeof window !== 'undefined' ? window.location.href : undefined);
+    const proxyOrigin = new URL(environment.videoProxy.baseUrl).origin;
+    return requestUrl.origin === proxyOrigin;
+  } catch {
+    return false;
+  }
+}
+
+function attachProxyAuth(xhr: XMLHttpRequest, url: string): void {
+  const apiKey = environment.videoProxy?.apiKey;
+  if (!apiKey || !isVideoProxyUrl(url)) {
+    return;
+  }
+
+  xhr.setRequestHeader('Authorization', `Bearer ${apiKey}`);
+  xhr.setRequestHeader('X-API-Key', apiKey);
+}
 
 export class HlsjsPlyrDriver implements PlyrDriver {
 
-  hls = new Hls();
+  hls = new Hls({
+    xhrSetup: (xhr, url) => {
+      attachProxyAuth(xhr, url);
+    },
+  });
 
   private loaded = false;
 
@@ -16,6 +44,7 @@ export class HlsjsPlyrDriver implements PlyrDriver {
 
     return new Plyr(params.videoElement, params.options);
   }
+
   updateSource(params: PlyrDriverUpdateSourceParams) {
     if (this.autoload) {
       this.load(params.source.sources[0].src);

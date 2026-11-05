@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { catchError, Observable, throwError } from 'rxjs';
 import { AuthService } from './auth.service';
-import { AuthUtils } from './auth.utils';
+import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor
@@ -22,42 +22,52 @@ export class AuthInterceptor implements HttpInterceptor
      */
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>>
     {
-        // Clone the request object
-        console.log(req.url);
-        
         let newReq = req.clone();
 
-        // Request
-        //
-        // If the access token didn't expire, add the Authorization header.
-        // We won't add the Authorization header if the access token expired.
-        // This will force the server to return a "401 Unauthorized" response
-        // for the protected API routes which our response interceptor will
-        // catch and delete the access token from the local storage while logging
-        // the user out from the app.
+        // App auth token for normal API calls (when present).
         if ( this._authService.accessToken )
         {
-            newReq = req.clone({
-                headers: req.headers.set('Authorization',  this._authService.accessToken)
+            newReq = newReq.clone({
+                headers: newReq.headers.set('Authorization',  this._authService.accessToken)
             });
         }
 
-        // Response
+        // Video-proxy auth for HttpClient calls to the proxy only.
+        // HLS.js does not use HttpClient — see HlsjsPlyrDriver xhrSetup.
+        if (this.isVideoProxyRequest(newReq.url) && environment.videoProxy?.apiKey)
+        {
+            const apiKey = environment.videoProxy.apiKey;
+            newReq = newReq.clone({
+                headers: newReq.headers
+                    .set('Authorization', `Bearer ${apiKey}`)
+                    .set('X-API-Key', apiKey)
+            });
+        }
+
         return next.handle(newReq).pipe(
             catchError((error) => {
 
-                // Catch "401 Unauthorized" responses
                 if ( error instanceof HttpErrorResponse && error.status === 401 )
                 {
-                    // Sign out
-                    // this._authService.signOut();
-
-                    // Reload the app
-                    // location.reload();
+                    // Sign out / reload intentionally left disabled.
                 }
 
                 return throwError(error);
             })
         );
+    }
+
+    private isVideoProxyRequest(url: string): boolean
+    {
+        try
+        {
+            const requestUrl = new URL(url, typeof window !== 'undefined' ? window.location.href : undefined);
+            const proxyOrigin = new URL(environment.videoProxy.baseUrl).origin;
+            return requestUrl.origin === proxyOrigin;
+        }
+        catch
+        {
+            return false;
+        }
     }
 }

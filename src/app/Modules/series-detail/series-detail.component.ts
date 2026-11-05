@@ -106,9 +106,9 @@ export class SeriesDetailComponent implements OnInit, AfterViewInit {
             if (season && (season['episodes'] && season['episodes'].length > 0)) {
               const episode = season['episodes'].find(x => x.episodeNumber == this.qParams['ep']);
               if (episode) {
-                // const dialogRef = this.dialog.open(PlayerComponent, {
+                const dialogRef = this.dialog.open(PlayerComponent, {
                 // const dialogRef = this.dialog.open(MegaPlayerComponent, {
-                const dialogRef = this.dialog.open(GdrivePlayerComponent, {
+                // const dialogRef = this.dialog.open(GdrivePlayerComponent, {
                   // id: 'cloud-plyr-idx',
                   width: '100vw',
                   maxWidth: '100vw',
@@ -149,9 +149,9 @@ export class SeriesDetailComponent implements OnInit, AfterViewInit {
 
 
 
-    // const dialogRef = this.dialog.open(PlayerComponent, {
+    const dialogRef = this.dialog.open(PlayerComponent, {
     // const dialogRef = this.dialog.open(MegaPlayerComponent, {
-    const dialogRef = this.dialog.open(GdrivePlayerComponent, {
+    // const dialogRef = this.dialog.open(GdrivePlayerComponent, {
       id: 'cloud-plyr-idx',
       width: '100vw',
       maxWidth: '100vw',

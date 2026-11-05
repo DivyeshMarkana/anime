@@ -8,7 +8,7 @@ import { ApiService } from '../../shared/api.service';
 import { ThemeHelpersService } from '../../shared/theme-helpers.service';
 import { PlyrComponent } from '@atom-platform/ngx-plyr';
 import { HlsjsPlyrDriver } from '../../hlsjs-plyr-driver';
-import Hls from 'hls.js';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-player',
@@ -59,7 +59,13 @@ export class PlayerComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnInit(): void {
     this.loading = true;
     if (this.data) {
-      this.vidSrc[0]['src'] = this.data['url'];
+      // this.vidSrc[0]['src'] = this.data['url'];
+      // const upstream = 'https://hls.dramahot.top/p/scxqicy/f5zaqap7hn/bjodxwju4n/0vg550fh5tlb13/master.m3u8';
+      const upstream = this.data['url'];
+      this.vidSrc[0]['src'] = `${environment.videoProxy.baseUrl}/api/videos/stream?url=${encodeURIComponent(upstream)}`;
+
+      console.log(this.vidSrc[0]['src']);
+      
       this.vidSrc[0]['fileId'] = this.data['fileId'];
       this.title = this.data['title'];
       this.epNumber = this.data['episodeNumber'];
